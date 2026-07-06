@@ -1,13 +1,62 @@
 /* ══════════════════════════════════════════════════════
    CtaSection — mobile-first
-   Fundo: claro (#f4f4f2)
+   Fundo: ESCURO (#0d1f3c)
+   Transição: Segments claro (#f4f4f2) → Cta escuro (#0d1f3c)
    ══════════════════════════════════════════════════════ */
 
 /* ── Base mobile ─────────────────────────────────────── */
 .section {
   position: relative;
-  background-color: var(--iot-bg-light);
-  padding: 64px 0;
+  margin-top: -40px;
+  padding: 80px 0 64px;
+  z-index: 5;
+}
+
+/* Fundo escuro começa abaixo dos triângulos */
+.section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  height: calc(100% - 40px);
+  background-color: var(--iot-bg-deep);
+  z-index: -1;
+}
+
+/* ── Background layers ───────────────────────────────── */
+.backgroundLayers {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+/* Triângulo escuro — desce sobre o claro anterior */
+.imageBg {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: #0a1a30; /* tom ligeiramente mais escuro que #0d1f3c */
+  clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+}
+
+/* Triângulo decorativo — toque accent azul elétrico */
+.triangleOverlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  -webkit-clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  background: rgba(0, 168, 232, 0.12);
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Layout — mobile: coluna única ───────────────────── */
@@ -18,10 +67,9 @@
 }
 
 /* ══════════════════════════════════════════════════════
-   Copy (lado esquerdo)
+   Copy (lado esquerdo) — texto claro sobre fundo escuro
    ══════════════════════════════════════════════════════ */
 
-/* ── Eyebrow ─────────────────────────────────────────── */
 .eyebrow {
   display: block;
   font-family: var(--font-heading);
@@ -43,13 +91,12 @@
   margin-right: 8px;
 }
 
-/* ── Headline ────────────────────────────────────────── */
 .headline {
   font-family: var(--font-heading);
   font-size: 26px;
   font-weight: 900;
   line-height: 1.15em;
-  color: var(--color-text);
+  color: var(--iot-text-primary);   /* branco — fundo escuro */
   text-transform: uppercase;
   margin-bottom: 16px;
   letter-spacing: -0.3px;
@@ -57,27 +104,25 @@
 
 .headlineAccent { color: var(--iot-accent); }
 
-/* ── Texto ───────────────────────────────────────────── */
 .text {
   font-size: 15px;
   line-height: 26px;
-  color: var(--color-text-muted);
+  color: var(--iot-text-secondary); /* branco 75% — fundo escuro */
   margin-bottom: 28px;
 }
 
 .text strong {
-  color: var(--color-text);
+  color: var(--iot-text-primary);
   font-weight: 700;
 }
 
 /* ══════════════════════════════════════════════════════
-   3 Passos do piloto
+   3 Passos do piloto — fundo escuro
    ══════════════════════════════════════════════════════ */
 
 .steps {
   display: flex;
   flex-direction: column;
-  gap: 0;
   margin-bottom: 28px;
 }
 
@@ -86,14 +131,13 @@
   align-items: flex-start;
   gap: 14px;
   padding: 14px 0;
-  border-bottom: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--iot-border);
 }
 
 .step:first-child {
-  border-top: 1px solid var(--color-border-light);
+  border-top: 1px solid var(--iot-border);
 }
 
-/* Número do passo — círculo accent */
 .stepNumber {
   width: 28px;
   height: 28px;
@@ -120,18 +164,18 @@
 .stepTitle {
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--iot-text-primary);   /* branco */
   font-family: var(--font-heading);
 }
 
 .stepText {
   font-size: 13px;
   line-height: 20px;
-  color: var(--color-text-muted);
+  color: var(--iot-text-secondary); /* branco 75% */
 }
 
 /* ══════════════════════════════════════════════════════
-   Eliminação de objeções
+   Eliminação de objeções — fundo escuro
    ══════════════════════════════════════════════════════ */
 
 .objectionList {
@@ -148,12 +192,11 @@
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
-  color: var(--color-text);
+  color: var(--iot-text-secondary); /* branco 75% */
   font-weight: 500;
   line-height: 1.4em;
 }
 
-/* Ícone de check verde — identidade Leo Pessoa */
 .objection i {
   color: var(--iot-cta-green);
   font-size: 12px;
@@ -163,42 +206,49 @@
 
 /* ══════════════════════════════════════════════════════
    CTA Box (lado direito)
+   Painel limpo: borda esquerda accent, fundo semi-transparente
    ══════════════════════════════════════════════════════ */
 
-/* Borda gradiente — accent azul → alert laranja */
 .ctaBox {
-  border-radius: 2px;
-  padding: 2px;
-  background-image: linear-gradient(
-    145deg,
-    var(--iot-accent) 0%,
-    var(--iot-bg-deep) 50%,
-    var(--iot-alert) 100%
-  );
-  box-shadow: 0 12px 48px rgba(13, 31, 60, 0.18);
-}
-
-.ctaBoxInner {
-  background-color: var(--iot-bg-deep);
-  border-radius: 1px;
-  padding: 28px 20px 24px;
-  text-align: center;
+  border-left: 3px solid var(--iot-accent);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0 2px 2px 0;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* botão ocupa largura total */
 }
 
+/* Eyebrow dentro da box */
 .ctaBoxLabel {
+  font-family: var(--font-heading);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--iot-text-muted);
-  margin-bottom: 18px;
-  text-align: center;
+  color: var(--iot-accent);
+  margin-bottom: 6px;
 }
 
-/* Telefone */
+/* Subtítulo da box */
+.ctaBoxSub {
+  font-size: 22px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--iot-text-primary);
+  text-transform: uppercase;
+  line-height: 1.2em;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+
+/* Linha separadora fina */
+.ctaBoxLine {
+  width: 100%;
+  height: 1px;
+  background-color: var(--iot-border);
+  margin-bottom: 24px;
+}
+
 .ctaBoxPhone {
   font-size: 13px;
   color: var(--iot-text-muted);
@@ -213,62 +263,86 @@
 }
 .ctaBoxPhoneLink:hover { color: var(--iot-accent); }
 
-/* Divisor */
-.ctaBoxDivider {
-  width: 36px;
-  height: 1px;
-  background-color: var(--iot-border);
-  margin: 20px auto;
-}
+/* ══════════════════════════════════════════════════════
+   Tablets/Desktop — info de contato adicionais
+   ══════════════════════════════════════════════════════ */
 
-/* Badges de diferenciais */
-.ctaBoxBadges {
+.ctaBoxMeta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--iot-border);
 }
 
-.ctaBoxBadge {
-  display: inline-flex;
+.ctaBoxMetaItem {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--iot-text-muted);
-  background-color: var(--iot-bg-card);
-  border: 1px solid var(--iot-border-light);
-  border-radius: 2px;
-  padding: 5px 10px;
-  white-space: nowrap;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--iot-text-secondary);
 }
 
-.ctaBoxBadge i {
+.ctaBoxMetaItem i {
+  width: 16px;
+  text-align: center;
   color: var(--iot-accent);
-  font-size: 10px;
+  font-size: 13px;
+  flex-shrink: 0;
 }
 
 /* ══════════════════════════════════════════════════════
    Tablet (480px+)
    ══════════════════════════════════════════════════════ */
 @media (min-width: 480px) {
-  .headline    { font-size: 30px; }
-  .ctaBoxInner { padding: 32px 28px 28px; }
+  .headline { font-size: 30px; }
 }
 
 /* ══════════════════════════════════════════════════════
-   Tablet largo (768px+)
+   Tablet largo (768px+) — triângulos maiores
    ══════════════════════════════════════════════════════ */
 @media (min-width: 768px) {
+  .section {
+    margin-top: -80px;
+    padding: 130px 0 72px;
+  }
+
+  .section::before { top: 80px; height: calc(100% - 80px); }
+
+  .imageBg {
+    clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+    -webkit-clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+  }
+
   .headline { font-size: 34px; }
   .text     { font-size: 16px; line-height: 28px; }
 }
 
 /* ══════════════════════════════════════════════════════
-   Desktop (992px+) — 2 colunas
+   Desktop (992px+) — triângulos cheios + 2 colunas
    ══════════════════════════════════════════════════════ */
 @media (min-width: 992px) {
-  .section { padding: 96px 0; }
+  .section {
+    margin-top: -190px;
+    padding: 230px 0 96px;
+  }
+
+  .section::before { top: 120px; height: calc(100% - 120px); }
+
+  .imageBg {
+    clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+    -webkit-clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+  }
 
   .inner {
     display: grid;
@@ -286,6 +360,6 @@
    Desktop largo (1200px+)
    ══════════════════════════════════════════════════════ */
 @media (min-width: 1200px) {
-  .inner   { grid-template-columns: 1fr 420px; }
+  .inner    { grid-template-columns: 1fr 420px; }
   .headline { font-size: 40px; }
 }

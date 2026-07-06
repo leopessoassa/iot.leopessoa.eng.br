@@ -42,8 +42,16 @@ const objections = [
 export default function CtaSection() {
   return (
     <section className={styles.section} id="contato">
-      <div className="auto-container">
-        <div className={styles.inner}>
+
+      {/* Background layers — triângulo de transição Segments (escuro) → Cta (claro) */}
+      <div className={styles.backgroundLayers} aria-hidden="true">
+        <div className={styles.triangleOverlay} />
+        <div className={styles.imageBg} />
+      </div>
+
+      <div className={styles.contentWrapper}>
+        <div className="auto-container">
+          <div className={styles.inner}>
 
           {/* ── Lado esquerdo — copy ──────────────────────── */}
           <div className={styles.copy}>
@@ -93,58 +101,58 @@ export default function CtaSection() {
 
           {/* ── Lado direito — CTA box ────────────────────── */}
           <div className={styles.ctaBox}>
-            <div className={styles.ctaBoxInner}>
 
-              <p className={styles.ctaBoxLabel}>
-                Fale diretamente com o engenheiro
-              </p>
+            <p className={styles.ctaBoxLabel}>Projeto Piloto</p>
 
-              <ThemeBtn
-                href={whatsappUrl(
-                  'Olá, Leo! Vi o site do KPRemote e quero conversar sobre um Projeto Piloto para minha empresa.'
-                )}
-                label="Iniciar Projeto Piloto"
-                variant="whatsapp"
-                size="large"
-                external
-                icon="fab fa-whatsapp"
-              />
+            <p className={styles.ctaBoxSub}>
+              Pronto para<br />Proteger sua<br />Operação?
+            </p>
 
-              <p className={styles.ctaBoxPhone}>
-                ou chame diretamente:{' '}
-                <a
-                  href={whatsappUrl('Olá, Leo!')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.ctaBoxPhoneLink}
-                >
-                  {WHATSAPP_DISPLAY}
-                </a>
-              </p>
+            <div className={styles.ctaBoxLine} aria-hidden="true" />
 
-              <div className={styles.ctaBoxDivider} aria-hidden="true" />
+            <ThemeBtn
+              href={whatsappUrl(
+                'Olá, Leo! Vi o site do KPRemote e quero conversar sobre um Projeto Piloto para minha empresa.'
+              )}
+              label="Iniciar Projeto Piloto"
+              variant="whatsapp"
+              size="large"
+              external
+              icon="fab fa-whatsapp"
+            />
 
-              {/* Diferenciais rápidos dentro da box */}
-              <div className={styles.ctaBoxBadges}>
-                <span className={styles.ctaBoxBadge}>
-                  <i className="fa fa-map-marker-alt" aria-hidden="true" />
-                  João Pessoa, PB
-                </span>
-                <span className={styles.ctaBoxBadge}>
-                  <i className="fa fa-tools" aria-hidden="true" />
-                  Suporte presencial
-                </span>
-                <span className={styles.ctaBoxBadge}>
-                  <i className="fa fa-shield-alt" aria-hidden="true" />
-                  CREA-PB ativo
-                </span>
+            <p className={styles.ctaBoxPhone}>
+              ou chame diretamente:{' '}
+              <a
+                href={whatsappUrl('Olá, Leo!')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaBoxPhoneLink}
+              >
+                {WHATSAPP_DISPLAY}
+              </a>
+            </p>
+
+            <div className={styles.ctaBoxMeta}>
+              <div className={styles.ctaBoxMetaItem}>
+                <i className="fa fa-map-marker-alt" aria-hidden="true" />
+                <span>João Pessoa, PB — atendimento presencial</span>
               </div>
-
+              <div className={styles.ctaBoxMetaItem}>
+                <i className="fa fa-shield-alt" aria-hidden="true" />
+                <span>Engenheiro Eletricista · CREA-PB ativo</span>
+              </div>
+              <div className={styles.ctaBoxMetaItem}>
+                <i className="fa fa-clock" aria-hidden="true" />
+                <span>Resposta em até 2 horas úteis</span>
+              </div>
             </div>
+
           </div>
 
-        </div>
-      </div>
+          </div>{/* fim inner */}
+        </div>{/* fim auto-container */}
+      </div>{/* fim contentWrapper */}
     </section>
   );
 }

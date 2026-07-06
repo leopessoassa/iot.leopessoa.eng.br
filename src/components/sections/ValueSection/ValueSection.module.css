@@ -1,13 +1,68 @@
 /* ══════════════════════════════════════════════════════
    ValueSection — mobile-first
    Fundo: azul cobalto (#132547)
+   Transição: Solution claro (#f4f4f2) → Value escuro (#132547)
+   Padrão: triângulo escuro desce sobre seção clara
    ══════════════════════════════════════════════════════ */
 
 /* ── Base mobile ─────────────────────────────────────── */
 .section {
   position: relative;
+  margin-top: -40px;
+  padding: 80px 0 64px;
+  z-index: 3; /* acima da SolutionSection (z-index: 2) */
+}
+
+/* Fundo escuro começa ABAIXO dos triângulos */
+.section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  height: calc(100% - 40px);
   background-color: var(--iot-bg-section);
-  padding: 64px 0;
+  z-index: -1;
+}
+
+/* ── Background layers ───────────────────────────────── */
+.backgroundLayers {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+/*
+ * imageBg = triângulo principal em azul cobalto (#132547).
+ * Desce sobre a seção clara anterior criando o efeito de ponta.
+ * Cor levemente diferente do fundo para o triângulo ser visível.
+ */
+.imageBg {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: #0f2040; /* tom ligeiramente mais escuro que #132547 */
+  clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+}
+
+/* Triângulo decorativo secundário — toque accent azul elétrico */
+.triangleOverlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  -webkit-clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  background: rgba(0, 168, 232, 0.15);
+}
+
+/* Conteúdo acima dos layers */
+.contentWrapper {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Lista de pilares — mobile: coluna única ─────────── */
@@ -211,6 +266,79 @@
 /* ══════════════════════════════════════════════════════
    Desktop largo (1200px+)
    ══════════════════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  .pillar { padding: 48px 36px 44px; }
+  .pillar::before { left: 36px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Triângulos — responsivo
+   ══════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+  .section {
+    margin-top: -80px;
+    padding: 130px 0 72px;
+  }
+
+  .section::before { top: 80px; height: calc(100% - 80px); }
+
+  .imageBg {
+    clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+    -webkit-clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+  }
+}
+
+@media (min-width: 992px) {
+  .section {
+    margin-top: -190px;
+    padding: 230px 0 96px;
+  }
+
+  .section::before { top: 120px; height: calc(100% - 120px); }
+
+  .imageBg {
+    clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+    -webkit-clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    align-items: stretch;
+  }
+
+  .pillar + .pillar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background-color: var(--iot-border);
+  }
+
+  .pillar        { padding: 44px 32px 40px; transition: background-color 0.25s ease; }
+  .pillar:hover  { background-color: var(--iot-bg-card-hover); }
+  .pillar::before { left: 32px; width: 48px; }
+  .pillarTitle   { font-size: 22px; }
+  .pillarSubtitle { font-size: 14px; }
+  .pillarNumber  { font-size: 64px; opacity: 0.08; }
+  .pillarLine    { margin: 24px 0; }
+  .bullets       { margin-bottom: 24px; gap: 12px; }
+}
+
 @media (min-width: 1200px) {
   .pillar { padding: 48px 36px 44px; }
   .pillar::before { left: 36px; }

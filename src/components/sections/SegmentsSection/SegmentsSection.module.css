@@ -1,13 +1,62 @@
 /* ══════════════════════════════════════════════════════
    SegmentsSection — mobile-first
-   Fundo: azul noite (#0d1f3c)
+   Fundo: CLARO (#f4f4f2)
+   Transição: Value escuro (#132547) → Segments claro (#f4f4f2)
    ══════════════════════════════════════════════════════ */
 
 /* ── Base mobile ─────────────────────────────────────── */
 .section {
   position: relative;
-  background-color: var(--iot-bg-deep);
-  padding: 64px 0;
+  margin-top: -40px;
+  padding: 80px 0 64px;
+  z-index: 4;
+}
+
+/* Fundo claro começa abaixo dos triângulos */
+.section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  height: calc(100% - 40px);
+  background-color: var(--iot-bg-light);
+  z-index: -1;
+}
+
+/* ── Background layers ───────────────────────────────── */
+.backgroundLayers {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+/* Triângulo claro — sobe sobre o escuro anterior */
+.imageBg {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: var(--iot-bg-light-alt);
+  clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+}
+
+/* Triângulo decorativo — toque accent azul elétrico */
+.triangleOverlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  -webkit-clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  background: rgba(0, 168, 232, 0.10);
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Grid — mobile: coluna única ─────────────────────── */
@@ -19,25 +68,24 @@
 }
 
 /* ══════════════════════════════════════════════════════
-   Card
+   Card — fundo branco sobre seção clara
    ══════════════════════════════════════════════════════ */
 
 .card {
   display: flex;
   flex-direction: column;
-  gap: 0;
   padding: 24px 20px 20px;
-  background-color: var(--iot-bg-card);
+  background-color: #fff;
   position: relative;
   transition: background-color 0.25s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .card:hover {
-  background-color: var(--iot-bg-card-hover);
+  background-color: var(--iot-accent-bg);
 }
 
-/* Linha accent no topo — visível só no hover em mobile,
-   sempre visível em desktop */
+/* Linha accent no topo */
 .card::before {
   content: '';
   position: absolute;
@@ -74,34 +122,35 @@
 
 /* ── Corpo do card ───────────────────────────────────── */
 .cardBody {
-  flex: 1; /* empurra o badge para o fundo */
+  flex: 1;
   margin-bottom: 16px;
 }
 
+/* Título escuro — fundo é claro */
 .cardTitle {
   font-family: var(--font-heading);
   font-size: 16px;
   font-weight: 700;
-  color: var(--iot-text-primary);
+  color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   margin-bottom: 8px;
   line-height: 1.3em;
 }
 
+/* Texto escuro — fundo é claro */
 .cardText {
   font-size: 13px;
   line-height: 21px;
-  color: var(--iot-text-secondary);
+  color: var(--color-text-muted);
 }
 
-/* ── Badge de norma — fica sempre no rodapé do card ─── */
+/* ── Badge de norma ──────────────────────────────────── */
 .normBadge {
   display: flex;
   align-items: center;
-  gap: 0;
   padding-top: 14px;
-  border-top: 1px solid var(--iot-border-light);
+  border-top: 1px solid var(--color-border-light);
   flex-wrap: wrap;
   gap: 6px;
 }
@@ -120,17 +169,18 @@
 }
 
 .normDivider {
-  display: none; /* simples no mobile — só o badge */
+  display: none;
 }
 
+/* Texto da norma escuro — fundo é claro */
 .normLabel {
   font-size: 11px;
-  color: var(--iot-text-muted);
+  color: var(--color-text-muted);
   line-height: 1.4em;
 }
 
 /* ══════════════════════════════════════════════════════
-   Rodapé da seção
+   Rodapé da seção — fundo claro
    ══════════════════════════════════════════════════════ */
 
 .footer {
@@ -139,45 +189,31 @@
   align-items: flex-start;
   gap: 20px;
   padding-top: 32px;
-  border-top: 1px solid var(--iot-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .footerText {
   font-size: 15px;
   line-height: 24px;
-  color: var(--iot-text-secondary);
+  color: var(--color-text-muted);
 }
 
 .footerText strong {
-  color: var(--iot-text-primary);
+  color: var(--color-text);
   font-weight: 700;
 }
 
-/* Botão outline em fundo escuro — cor invertida */
-.footer :global(.btn.outline) {
-  border-color: rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.footer :global(.btn.outline):hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #fff;
-}
-
 /* ══════════════════════════════════════════════════════
-   Tablet (600px+) — grid 2 colunas
+   Tablet (600px+)
    ══════════════════════════════════════════════════════ */
 @media (min-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .grid { grid-template-columns: repeat(2, 1fr); }
 
   .normDivider {
     display: block;
     width: 1px;
     height: 10px;
-    background-color: var(--iot-border);
+    background-color: var(--color-border);
     flex-shrink: 0;
   }
 
@@ -187,36 +223,56 @@
     justify-content: space-between;
   }
 
-  .footerText {
-    max-width: 480px;
+  .footerText { max-width: 480px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet largo (768px+) — triângulos maiores
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .section {
+    margin-top: -80px;
+    padding: 130px 0 64px;
+  }
+
+  .section::before { top: 80px; height: calc(100% - 80px); }
+
+  .imageBg {
+    clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+    -webkit-clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
   }
 }
 
 /* ══════════════════════════════════════════════════════
-   Desktop (992px+) — grid 3 colunas
+   Desktop (992px+) — triângulos cheios, 3 colunas
    ══════════════════════════════════════════════════════ */
 @media (min-width: 992px) {
-  .section { padding: 96px 0; }
-
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    margin-bottom: 48px;
+  .section {
+    margin-top: -190px;
+    padding: 230px 0 96px;
   }
 
-  .card {
-    padding: 32px 28px 28px;
+  .section::before { top: 120px; height: calc(100% - 120px); }
+
+  .imageBg {
+    clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
   }
 
-  /* Linha accent sempre visível no desktop */
-  .card::before {
-    width: 40px;
+  .triangleOverlay {
+    clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+    -webkit-clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
   }
 
-  .card:hover::before {
-    width: 100%;
-  }
-
+  .grid { grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 48px; }
+  .card { padding: 32px 28px 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .card::before { width: 40px; }
+  .card:hover::before { width: 100%; }
   .cardTitle { font-size: 17px; }
   .iconWrap  { width: 44px; height: 44px; min-width: 44px; margin-bottom: 20px; }
   .icon      { font-size: 18px; }

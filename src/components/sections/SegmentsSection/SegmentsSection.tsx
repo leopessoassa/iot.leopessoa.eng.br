@@ -78,14 +78,21 @@ const segments: Segment[] = [
 export default function SegmentsSection() {
   return (
     <section className={styles.section} id="segmentos">
-      <div className="auto-container">
+
+      {/* Background layers — triângulo de transição Value (#132547) → Segments (#0d1f3c) */}
+      <div className={styles.backgroundLayers} aria-hidden="true">
+        <div className={styles.triangleOverlay} />
+        <div className={styles.imageBg} />
+      </div>
+
+      <div className={styles.contentWrapper}>
+        <div className="auto-container">
 
         <SectionTitle
           eyebrow="Para Quem É"
           title="Se Você Tem Perecíveis,<br />Você Tem Risco."
           subtitle="O KPRemote foi desenvolvido para operações onde o controle de temperatura não é opcional — é obrigação legal e condição de sobrevivência do negócio."
           align="center"
-          light
           accentColor="blue"
         />
 
@@ -133,7 +140,8 @@ export default function SegmentsSection() {
           />
         </div>
 
-      </div>
+        </div>{/* fim auto-container */}
+      </div>{/* fim contentWrapper */}
     </section>
   );
 }

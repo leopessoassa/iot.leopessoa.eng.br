@@ -101,10 +101,14 @@ export default function SolutionSection() {
   return (
     <section className={styles.section} id="solucao">
 
-      {/* Grafismo triangular — transição Hero → SolutionSection */}
-      <div className={styles.triangleTop} aria-hidden="true" />
+      {/* Background layers — triângulo de transição Hero → Solution */}
+      <div className={styles.backgroundLayers} aria-hidden="true">
+        <div className={styles.triangleOverlay} />
+        <div className={styles.imageBg} />
+      </div>
 
-      <div className="auto-container">
+      <div className={styles.contentWrapper}>
+        <div className="auto-container">
 
         {/* ── Título ──────────────────────────────────────────── */}
         <SectionTitle
@@ -173,7 +177,8 @@ export default function SolutionSection() {
           </div>
         </div>
 
-      </div>
+      </div>{/* fim auto-container */}
+      </div>{/* fim contentWrapper */}
     </section>
   );
 }

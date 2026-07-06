@@ -1,42 +1,72 @@
 /* ══════════════════════════════════════════════════════
    SolutionSection — mobile-first
+   Fundo: claro (#f4f4f2)
+   Transição: Hero escuro (#0d1f3c) → Section claro
+   Padrão: triângulo claro sobe sobre o hero
    ══════════════════════════════════════════════════════ */
 
 /* ── Base mobile ─────────────────────────────────────── */
 .section {
   position: relative;
-  background-color: var(--iot-bg-light);
-  padding: 72px 0 60px;
-  margin-top: -60px; /* overlap Hero → grafismo triangular */
+  margin-top: -40px;   /* mobile: overlap menor */
+  padding: 80px 0 60px;
   z-index: 2;
 }
 
-/* ── Triângulo de transição ──────────────────────────── */
-.triangleTop {
+/* Fundo claro começa ABAIXO dos triângulos */
+.section::before {
+  content: '';
   position: absolute;
-  top: 0;
   left: 0;
+  top: 40px;           /* onde os triângulos terminam em mobile */
   width: 100%;
-  height: 60px;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.triangleTop::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+  height: calc(100% - 40px);
   background-color: var(--iot-bg-light);
-  clip-path: polygon(0% 100%, 55% 0%, 100% 100%);
+  z-index: -1;
 }
 
-.triangleTop::after {
-  content: '';
+/* ── Background layers (triângulo) ───────────────────── */
+.backgroundLayers {
   position: absolute;
-  inset: 0;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+/*
+ * imageBg = triângulo principal.
+ * Cor levemente mais escura que o fundo para o triângulo ser visível
+ * contra a seção clara que segue.
+ * Mobile: valores menores (40px) → tablet+ (80px) → desktop (120px)
+ */
+.imageBg {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
   background-color: var(--iot-bg-light-alt);
-  clip-path: polygon(55% 0%, 100% 100%, 100% 0%);
-  opacity: 0.5;
+  clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0% 40px, 55% 0%, 100% 40px, 100% 100%, 50% 100%, 0% 100%);
+}
+
+/*
+ * triangleOverlay = triângulo decorativo secundário (canto direito).
+ * Toque de accent azul elétrico sutil — diferente do dourado do parceiros.
+ */
+.triangleOverlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  -webkit-clip-path: polygon(55% 0%, 100% 40px, 100% 0%);
+  background: rgba(0, 168, 232, 0.10);
+}
+
+/* Conteúdo acima dos layers */
+.contentWrapper {
+  position: relative;
+  z-index: 1;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -64,7 +94,6 @@
   overflow: hidden;
 }
 
-/* Linha accent no topo */
 .pillarCard::before {
   content: '';
   position: absolute;
@@ -102,10 +131,7 @@
   flex-shrink: 0;
 }
 
-.pillarIcon {
-  font-size: 16px;
-  color: var(--iot-accent);
-}
+.pillarIcon { font-size: 16px; color: var(--iot-accent); }
 
 .pillarTitle {
   font-family: var(--font-heading);
@@ -123,7 +149,7 @@
   color: var(--iot-text-secondary);
 }
 
-/* ── Conector ↓ entre pilares ────────────────────────── */
+/* ── Conector ─────────────────────────────────────────── */
 .connector {
   display: flex;
   align-items: center;
@@ -153,9 +179,7 @@
    6 Capacidades — mobile: coluna única
    ══════════════════════════════════════════════════════ */
 
-.capabilitiesBlock {
-  margin-bottom: 40px;
-}
+.capabilitiesBlock { margin-bottom: 40px; }
 
 .capabilitiesLabel {
   text-align: center;
@@ -196,10 +220,7 @@
   border-radius: 2px;
 }
 
-.capIcon {
-  font-size: 15px;
-  color: var(--iot-accent);
-}
+.capIcon { font-size: 15px; color: var(--iot-accent); }
 
 .capTitle {
   font-family: var(--font-heading);
@@ -211,11 +232,7 @@
   letter-spacing: 0.3px;
 }
 
-.capText {
-  font-size: 13px;
-  line-height: 20px;
-  color: var(--color-text-muted);
-}
+.capText { font-size: 13px; line-height: 20px; color: var(--color-text-muted); }
 
 /* ══════════════════════════════════════════════════════
    Canais de entrega
@@ -238,11 +255,7 @@
   color: var(--iot-text-muted);
 }
 
-.deliveryChannels {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.deliveryChannels { display: flex; flex-direction: column; gap: 8px; }
 
 .deliveryChannel {
   display: flex;
@@ -258,7 +271,6 @@
 }
 
 .deliveryIcon { font-size: 16px; }
-
 .whatsapp { background-color: rgba(37,211,102,0.10); border-color: rgba(37,211,102,0.25); color: #25d366; }
 .telegram { background-color: rgba(0,136,204,0.10);  border-color: rgba(0,136,204,0.25);  color: #0088cc; }
 .report   { background-color: var(--iot-accent-bg);  border-color: rgba(0,168,232,0.25);  color: var(--iot-accent); }
@@ -274,23 +286,53 @@
 }
 
 /* ══════════════════════════════════════════════════════
-   Tablet largo (768px+)
+   Tablet largo (768px+) — triângulos maiores
    ══════════════════════════════════════════════════════ */
 @media (min-width: 768px) {
-  .section     { padding: 88px 0 72px; margin-top: -72px; }
-  .triangleTop { height: 72px; }
+  .section {
+    margin-top: -80px;
+    padding: 130px 0 72px;
+  }
+
+  .section::before { top: 80px; height: calc(100% - 80px); }
+
+  .imageBg {
+    clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 80px, 55% 20px, 100% 80px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+    -webkit-clip-path: polygon(55% 20px, 100% 80px, 100% 0%);
+  }
+
   .pillarCard  { padding: 32px 28px 28px; }
   .pillarTitle { font-size: 20px; }
   .pillarNumber { font-size: 52px; }
 }
 
 /* ══════════════════════════════════════════════════════
-   Desktop (992px+) — pilares em linha
+   Desktop (992px+) — triângulos cheios, pilares em linha
    ══════════════════════════════════════════════════════ */
 @media (min-width: 992px) {
-  .section        { padding: 100px 0 88px; margin-top: -80px; }
-  .triangleTop    { height: 80px; }
+  .section {
+    margin-top: -190px;
+    padding: 230px 0 88px;
+  }
 
+  .section::before { top: 120px; height: calc(100% - 120px); }
+
+  .imageBg {
+    clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 120px, 60% 60px, 100% 120px, 100% 100%, 50% 100%, 0% 100%);
+  }
+
+  .triangleOverlay {
+    clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+    -webkit-clip-path: polygon(60% 60px, 100% 0%, 100% 120px);
+  }
+
+  /* Pilares em linha horizontal */
   .pillarsRow {
     flex-direction: row;
     align-items: stretch;
@@ -315,7 +357,6 @@
     box-shadow: 0 16px 48px rgba(13, 31, 60, 0.25);
   }
 
-  /* Conector vira → horizontal */
   .connector {
     width: 48px;
     height: auto;

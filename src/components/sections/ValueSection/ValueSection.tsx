@@ -76,7 +76,15 @@ const pillars: Pillar[] = [
 export default function ValueSection() {
   return (
     <section className={styles.section} id="pilares">
-      <div className="auto-container">
+
+      {/* Background layers — triângulo de transição Solution (claro) → Value (escuro) */}
+      <div className={styles.backgroundLayers} aria-hidden="true">
+        <div className={styles.triangleOverlay} />
+        <div className={styles.imageBg} />
+      </div>
+
+      <div className={styles.contentWrapper}>
+        <div className="auto-container">
 
         <SectionTitle
           eyebrow="Por Que KPRemote"
@@ -128,7 +136,8 @@ export default function ValueSection() {
           ))}
         </div>
 
-      </div>
+        </div>{/* fim auto-container */}
+      </div>{/* fim contentWrapper */}
     </section>
   );
 }
