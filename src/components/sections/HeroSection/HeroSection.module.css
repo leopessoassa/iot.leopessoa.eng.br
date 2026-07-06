@@ -1,0 +1,306 @@
+/* ══════════════════════════════════════════════════════
+   HeroSection — mobile-first
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh; /* svh = viewport sem barra do browser mobile */
+  display: flex;
+  align-items: center;
+  padding: 100px 0 80px; /* mobile: header ~64px + respiro */
+  overflow: hidden;
+  background-color: var(--iot-bg-deep);
+}
+
+/* ── Background ──────────────────────────────────────── */
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  background-color: var(--iot-bg-section);
+}
+
+/* Mobile: overlay mais opaco — imagem não compete com texto em tela pequena */
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 31, 60, 0.97) 0%,
+    rgba(13, 31, 60, 0.95) 60%,
+    rgba(13, 31, 60, 0.90) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Conteúdo ────────────────────────────────────────── */
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* ── Eyebrow ─────────────────────────────────────────── */
+.eyebrow {
+  display: block; /* block = sem overflow */
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--iot-accent);
+  margin-bottom: 16px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--iot-accent);
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* ── Headline — mobile base: 28px ────────────────────── */
+.headline {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.15em;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+
+.headlineAccent {
+  color: var(--iot-accent);
+}
+
+/* ── Subheadline ─────────────────────────────────────── */
+.subheadline {
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--iot-text-secondary);
+  margin-bottom: 24px;
+}
+
+.subheadline strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ── Alert badge ─────────────────────────────────────── */
+.alertBadge {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: rgba(240, 82, 42, 0.08);
+  border: 1px solid rgba(240, 82, 42, 0.35);
+  border-left: 3px solid var(--iot-alert);
+  border-radius: 2px;
+  padding: 10px 14px;
+  margin-bottom: 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.alertDot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  min-width: 8px; /* garante que o dot não encolhe */
+  border-radius: 50%;
+  background-color: var(--iot-alert);
+  flex-shrink: 0;
+  margin-top: 4px; /* alinha com a primeira linha do texto */
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+.alertText {
+  font-size: 12px;
+  line-height: 1.6em;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-heading);
+  letter-spacing: 0.2px;
+}
+
+.alertText strong {
+  color: var(--iot-alert);
+  font-size: 10px;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ── CTAs — coluna em mobile ─────────────────────────── */
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+/* ── Proof bar — 2×2 em mobile ───────────────────────── */
+/*
+ * Mobile: grid 2×2 — separação via border, sem elementos DOM extras
+ * Desktop (768px+): flex linha com 4 itens
+ */
+.proofBar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 28px;
+  border-top: 1px solid var(--iot-border);
+  width: 100%;
+}
+
+.proofItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 0 20px 0;
+}
+
+/* Coluna da direita: borda esquerda como separador vertical */
+.proofItem:nth-child(even) {
+  padding-left: 16px;
+  border-left: 1px solid var(--iot-border);
+}
+
+/* Coluna da esquerda: padding-right para respirar */
+.proofItem:nth-child(odd) {
+  padding-right: 16px;
+}
+
+/* Segunda linha: borda superior como separador horizontal */
+.proofItem:nth-child(3),
+.proofItem:nth-child(4) {
+  padding-top: 20px;
+  padding-bottom: 0;
+  border-top: 1px solid var(--iot-border);
+}
+
+.proofNumber {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--iot-accent);
+  line-height: 1em;
+  letter-spacing: -0.5px;
+}
+
+.proofLabel {
+  font-size: 10px;
+  color: var(--iot-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.4em;
+}
+
+/* Dividers não existem mais no DOM */
+.proofDivider { display: none; }
+
+/* ── Seta de scroll ──────────────────────────────────── */
+.scrollArrow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 22px;
+  transition: color 0.3s ease;
+  animation: bounce 2.5s ease-in-out infinite;
+}
+
+.scrollArrow:hover { color: var(--iot-accent); }
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet (480px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 480px) {
+  .headline    { font-size: 36px; }
+  .ctaGroup    { flex-direction: row; flex-wrap: wrap; }
+  .proofNumber { font-size: 24px; }
+  .proofLabel  { font-size: 11px; }
+}
+/* ══════════════════════════════════════════════════════
+   Tablet largo (768px+) — proof bar em linha única
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .hero        { padding: 130px 0 100px; }
+  .headline    { font-size: 44px; letter-spacing: -0.5px; }
+  .subheadline { font-size: 16px; line-height: 28px; }
+  .content     { max-width: 640px; }
+
+  /* Proof bar: flex linha única — separação via border-right */
+  .proofBar {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  /* Reset dos estilos mobile */
+  .proofItem {
+    padding: 0 24px;
+    border-left: none;
+    border-top: none;
+    border-right: 1px solid var(--iot-border);
+  }
+
+  .proofItem:nth-child(odd)  { padding-right: 24px; }
+  .proofItem:nth-child(even) { padding-left: 24px; border-left: none; }
+  .proofItem:first-child     { padding-left: 0; }
+  .proofItem:last-child      { border-right: none; }
+
+  /* Remove borda horizontal da segunda linha mobile */
+  .proofItem:nth-child(3),
+  .proofItem:nth-child(4) {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: none;
+  }
+
+  .proofNumber { font-size: 26px; }
+
+  .bgOverlay {
+    background: linear-gradient(
+      100deg,
+      rgba(13, 31, 60, 0.97) 0%,
+      rgba(13, 31, 60, 0.93) 45%,
+      rgba(13, 31, 60, 0.65) 70%,
+      rgba(13, 31, 60, 0.30) 100%
+    );
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (1024px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  .hero     { padding: 140px 0 110px; }
+  .headline { font-size: 56px; letter-spacing: -0.5px; }
+  .content  { max-width: 680px; }
+  .proofItem { padding: 0 28px; }
+  .proofNumber { font-size: 28px; }
+}

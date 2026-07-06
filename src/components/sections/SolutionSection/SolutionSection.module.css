@@ -1,0 +1,337 @@
+/* ══════════════════════════════════════════════════════
+   SolutionSection — mobile-first
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.section {
+  position: relative;
+  background-color: var(--iot-bg-light);
+  padding: 72px 0 60px;
+  margin-top: -60px; /* overlap Hero → grafismo triangular */
+  z-index: 2;
+}
+
+/* ── Triângulo de transição ──────────────────────────── */
+.triangleTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.triangleTop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--iot-bg-light);
+  clip-path: polygon(0% 100%, 55% 0%, 100% 100%);
+}
+
+.triangleTop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--iot-bg-light-alt);
+  clip-path: polygon(55% 0%, 100% 100%, 100% 0%);
+  opacity: 0.5;
+}
+
+/* ══════════════════════════════════════════════════════
+   Os 3 Pilares — mobile: coluna única
+   ══════════════════════════════════════════════════════ */
+
+.pillarsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.pillarWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Card do pilar ───────────────────────────────────── */
+.pillarCard {
+  background-color: var(--iot-bg-deep);
+  border-radius: 2px;
+  padding: 28px 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha accent no topo */
+.pillarCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--iot-accent), transparent);
+}
+
+.pillarTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.pillarNumber {
+  font-family: var(--font-heading);
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--iot-accent);
+  opacity: 0.15;
+  line-height: 1em;
+  letter-spacing: -2px;
+}
+
+.pillarIconWrap {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--iot-accent-bg);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.pillarIcon {
+  font-size: 16px;
+  color: var(--iot-accent);
+}
+
+.pillarTitle {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--iot-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.pillarText {
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--iot-text-secondary);
+}
+
+/* ── Conector ↓ entre pilares ────────────────────────── */
+.connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  position: relative;
+}
+
+.connectorLine {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--iot-accent) 50%, transparent);
+}
+
+.connectorArrow {
+  font-size: 12px;
+  color: var(--iot-accent);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  background-color: var(--iot-bg-light);
+  padding: 3px 5px;
+}
+
+/* ══════════════════════════════════════════════════════
+   6 Capacidades — mobile: coluna única
+   ══════════════════════════════════════════════════════ */
+
+.capabilitiesBlock {
+  margin-bottom: 40px;
+}
+
+.capabilitiesLabel {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
+.capabilitiesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background-color: var(--color-border-light);
+}
+
+.capCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 16px;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.capCard:hover { background-color: var(--iot-accent-bg); }
+
+.capIconWrap {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--iot-accent-bg);
+  border-radius: 2px;
+}
+
+.capIcon {
+  font-size: 15px;
+  color: var(--iot-accent);
+}
+
+.capTitle {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.capText {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-text-muted);
+}
+
+/* ══════════════════════════════════════════════════════
+   Canais de entrega
+   ══════════════════════════════════════════════════════ */
+
+.deliveryBar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 16px;
+  background-color: var(--iot-bg-deep);
+  border-radius: 2px;
+}
+
+.deliveryLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--iot-text-muted);
+}
+
+.deliveryChannels {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.deliveryChannel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 2px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: 1px solid transparent;
+}
+
+.deliveryIcon { font-size: 16px; }
+
+.whatsapp { background-color: rgba(37,211,102,0.10); border-color: rgba(37,211,102,0.25); color: #25d366; }
+.telegram { background-color: rgba(0,136,204,0.10);  border-color: rgba(0,136,204,0.25);  color: #0088cc; }
+.report   { background-color: var(--iot-accent-bg);  border-color: rgba(0,168,232,0.25);  color: var(--iot-accent); }
+
+/* ══════════════════════════════════════════════════════
+   Tablet (600px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 600px) {
+  .capabilitiesGrid   { grid-template-columns: repeat(2, 1fr); }
+  .deliveryChannels   { flex-direction: row; flex-wrap: wrap; }
+  .deliveryChannel    { flex: 1; justify-content: center; min-width: 0; }
+  .deliveryBar        { flex-direction: row; align-items: center; flex-wrap: wrap; padding: 20px 24px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet largo (768px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .section     { padding: 88px 0 72px; margin-top: -72px; }
+  .triangleTop { height: 72px; }
+  .pillarCard  { padding: 32px 28px 28px; }
+  .pillarTitle { font-size: 20px; }
+  .pillarNumber { font-size: 52px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (992px+) — pilares em linha
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  .section        { padding: 100px 0 88px; margin-top: -80px; }
+  .triangleTop    { height: 80px; }
+
+  .pillarsRow {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 64px;
+  }
+
+  .pillarWrap {
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pillarCard {
+    flex: 1;
+    padding: 36px 28px 32px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pillarCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(13, 31, 60, 0.25);
+  }
+
+  /* Conector vira → horizontal */
+  .connector {
+    width: 48px;
+    height: auto;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .connectorLine {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--iot-accent) 50%, transparent);
+  }
+  .connectorArrow {
+    transform: translate(-50%, -50%);
+    background-color: var(--iot-bg-light);
+  }
+
+  .capabilitiesGrid { grid-template-columns: repeat(3, 1fr); }
+  .pillarNumber     { font-size: 56px; }
+}

@@ -1,0 +1,224 @@
+/* ══════════════════════════════════════════════════════
+   SegmentsSection — mobile-first
+   Fundo: azul noite (#0d1f3c)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.section {
+  position: relative;
+  background-color: var(--iot-bg-deep);
+  padding: 64px 0;
+}
+
+/* ── Grid — mobile: coluna única ─────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  margin-bottom: 40px;
+}
+
+/* ══════════════════════════════════════════════════════
+   Card
+   ══════════════════════════════════════════════════════ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 24px 20px 20px;
+  background-color: var(--iot-bg-card);
+  position: relative;
+  transition: background-color 0.25s ease;
+}
+
+.card:hover {
+  background-color: var(--iot-bg-card-hover);
+}
+
+/* Linha accent no topo — visível só no hover em mobile,
+   sempre visível em desktop */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--iot-accent);
+  transition: width 0.35s ease;
+}
+
+.card:hover::before {
+  width: 100%;
+}
+
+/* ── Ícone ───────────────────────────────────────────── */
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--iot-accent-bg);
+  border-radius: 2px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 16px;
+  color: var(--iot-accent);
+}
+
+/* ── Corpo do card ───────────────────────────────────── */
+.cardBody {
+  flex: 1; /* empurra o badge para o fundo */
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--iot-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+  line-height: 1.3em;
+}
+
+.cardText {
+  font-size: 13px;
+  line-height: 21px;
+  color: var(--iot-text-secondary);
+}
+
+/* ── Badge de norma — fica sempre no rodapé do card ─── */
+.normBadge {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--iot-border-light);
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.normCode {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--iot-accent);
+  text-transform: uppercase;
+  background-color: var(--iot-accent-bg);
+  padding: 3px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.normDivider {
+  display: none; /* simples no mobile — só o badge */
+}
+
+.normLabel {
+  font-size: 11px;
+  color: var(--iot-text-muted);
+  line-height: 1.4em;
+}
+
+/* ══════════════════════════════════════════════════════
+   Rodapé da seção
+   ══════════════════════════════════════════════════════ */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-top: 32px;
+  border-top: 1px solid var(--iot-border);
+}
+
+.footerText {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--iot-text-secondary);
+}
+
+.footerText strong {
+  color: var(--iot-text-primary);
+  font-weight: 700;
+}
+
+/* Botão outline em fundo escuro — cor invertida */
+.footer :global(.btn.outline) {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer :global(.btn.outline):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet (600px+) — grid 2 colunas
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .normDivider {
+    display: block;
+    width: 1px;
+    height: 10px;
+    background-color: var(--iot-border);
+    flex-shrink: 0;
+  }
+
+  .footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footerText {
+    max-width: 480px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (992px+) — grid 3 colunas
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  .section { padding: 96px 0; }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .card {
+    padding: 32px 28px 28px;
+  }
+
+  /* Linha accent sempre visível no desktop */
+  .card::before {
+    width: 40px;
+  }
+
+  .card:hover::before {
+    width: 100%;
+  }
+
+  .cardTitle { font-size: 17px; }
+  .iconWrap  { width: 44px; height: 44px; min-width: 44px; margin-bottom: 20px; }
+  .icon      { font-size: 18px; }
+  .cardBody  { margin-bottom: 20px; }
+}

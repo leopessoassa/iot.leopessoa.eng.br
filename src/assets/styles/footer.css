@@ -1,0 +1,224 @@
+/* Footer styles migrated from the Ingenious template */
+
+.main-footer {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.main-footer:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  content: "";
+  background-color: rgba(17, 17, 17, 0.95);
+}
+
+.main-footer .widgets-section {
+  position: relative;
+  padding: 80px 0 100px;
+}
+
+.main-footer .footer-column {
+  position: relative;
+}
+
+.main-footer .footer-widget {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.main-footer .widget-title {
+  position: relative;
+  display: block;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1em;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.main-footer .widget-title:after,
+.main-footer .widget-title:before {
+  left: 0;
+  margin: 0;
+  bottom: -5px;
+}
+
+.main-footer .about-widget .text {
+  color: #b0b0b0;
+  font-size: 15px;
+}
+
+/* Recent Posts */
+
+.recent-posts {
+  position: relative;
+}
+
+.recent-posts .widget-content {
+  padding-top: 10px;
+}
+
+.recent-posts .post {
+  position: relative;
+  min-height: 80px;
+  padding-left: 90px;
+  margin-bottom: 20px;
+}
+
+.recent-posts .post:last-child {
+  margin-bottom: 0;
+}
+
+.recent-posts .post .thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 80px;
+  width: 80px;
+  overflow: hidden;
+}
+
+.recent-posts .post .thumb a {
+  display: block;
+}
+
+.recent-posts .post .thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.recent-posts .post h5 {
+  position: relative;
+  font-size: 18px;
+  color: #ffffff;
+  line-height: 1.1em;
+  font-weight: 600;
+}
+
+.recent-posts .post h5 a {
+  color: #ffffff;
+  transition: all 300ms ease;
+}
+
+.recent-posts .post h5 a:hover {
+  color: #59ab66;
+}
+
+.recent-posts .post .cat {
+  position: relative;
+  display: block;
+  font-size: 15px;
+  line-height: 24px;
+  color: #59ab66;
+}
+
+.recent-posts .post .text {
+  color: #b0b0b0;
+  font-size: 15px;
+}
+
+/* Contact Widget */
+
+.contact-widget {
+  position: relative;
+}
+
+.main-footer .contact-list {
+  position: relative;
+}
+
+.main-footer .contact-list li {
+  position: relative;
+  font-size: 15px;
+  line-height: 30px;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.main-footer .contact-list li > i {
+  position: relative;
+  margin-right: 7px;
+  font-size: 14px;
+  line-height: 30px;
+  color: #ffffff;
+}
+
+.main-footer .contact-list li a {
+  color: #b0b0b0;
+  transition: all 200ms ease;
+}
+
+.main-footer .contact-list li a:hover {
+  color: #59ab66;
+}
+
+.main-footer .contact-list .social-icon {
+  position: relative;
+}
+
+.main-footer .contact-list .social-icon a {
+  color: #ffffff;
+  margin-right: 25px;
+}
+
+/* Footer Bottom */
+
+.main-footer .footer-bottom {
+  position: relative;
+  background-color: rgba(43, 43, 43, 1);
+}
+
+.main-footer .footer-bottom .copyright-text {
+  position: relative;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.main-footer .footer-bottom .copyright-text p {
+  position: relative;
+  font-size: 0.866667em;
+  line-height: 25px;
+  color: #dddddd;
+}
+
+.main-footer .footer-bottom .copyright-text a {
+  color: #dddddd;
+  transition: all 300ms ease;
+}
+
+.main-footer .footer-bottom .copyright-text a:hover {
+  text-decoration: underline;
+}
+
+/* Footer grid columns */
+
+.footer-column.col-lg-4 {
+  padding: 0 15px;
+  width: 33.333%;
+  flex: 0 0 33.333%;
+}
+
+.footer-column.col-md-6 {
+  padding: 0 15px;
+}
+
+@media (max-width: 991px) {
+  .footer-column.col-lg-4 {
+    width: 50%;
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 599px) {
+  .footer-column.col-lg-4 {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+}

@@ -1,0 +1,254 @@
+/* ══════════════════════════════════════════════════════
+   Footer — mobile-first
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.footer {
+  position: relative;
+  background-color: var(--iot-bg-deep);
+}
+
+/* ── Widgets — mobile: coluna única ──────────────────── */
+.widgets {
+  padding: 48px 0 52px;
+  border-top: 1px solid var(--iot-border);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+}
+
+/* ── Coluna 1 — Identidade ───────────────────────────── */
+.logoWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* Fallback texto — aparece quando imagem não carrega */
+.logoText {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+}
+
+.logoText strong {
+  color: var(--iot-accent);
+  font-weight: 900;
+}
+
+.brandText {
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--iot-text-secondary);
+  margin-bottom: 10px;
+}
+
+.brandBy {
+  font-size: 12px;
+  color: var(--iot-text-muted);
+  margin-bottom: 20px;
+}
+
+.brandByLink {
+  color: var(--iot-accent);
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.brandByLink:hover {
+  color: #fff;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border: 1px solid var(--iot-border);
+  border-radius: 2px;
+  color: var(--iot-text-muted);
+  font-size: 16px;
+  transition: var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+.socialLink:hover { border-color: var(--iot-accent); color: var(--iot-accent); }
+
+/* ── Colunas — Título ────────────────────────────────── */
+.colTitle {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--iot-text-muted);
+  margin-bottom: 16px;
+}
+
+/* ── Coluna 2 — Navegação ────────────────────────────── */
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navLink {
+  display: block;
+  padding: 9px 0;
+  font-size: 14px;
+  color: var(--iot-text-secondary);
+  border-bottom: 1px solid var(--iot-border-light);
+  transition: var(--transition-fast);
+}
+.navLink:hover { color: var(--iot-accent); padding-left: 6px; }
+
+/* ── Coluna 3 — Contato ──────────────────────────────── */
+.contactList {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--iot-border-light);
+  gap: 0;
+  flex-wrap: wrap; /* em telas muito pequenas o valor pode quebrar linha */
+}
+
+.contactLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--iot-text-muted);
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.contactSep {
+  width: 1px;
+  height: 12px;
+  background-color: var(--iot-border);
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+.contactLink {
+  font-size: 14px;
+  color: var(--iot-text-secondary);
+  transition: color 0.2s ease;
+  word-break: break-word;
+}
+.contactLink:hover { color: var(--iot-accent); }
+
+.contactText {
+  font-size: 14px;
+  color: var(--iot-text-secondary);
+}
+
+/* CTA WhatsApp */
+.ctaWhatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-whatsapp);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border-radius: 2px;
+  transition: var(--transition-fast);
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.ctaWhatsapp:hover { background-color: var(--color-whatsapp-dark); color: #fff; }
+
+/* ── Bottom bar ──────────────────────────────────────── */
+.bottom {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 14px 0;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 12px;
+  color: var(--iot-text-muted);
+  line-height: 1.5em;
+}
+
+.copyrightLink {
+  color: var(--iot-text-muted);
+  transition: color 0.2s ease;
+}
+.copyrightLink:hover { color: var(--iot-accent); }
+
+/* ══════════════════════════════════════════════════════
+   Tablet (600px+) — 2 colunas
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  /* Identidade ocupa linha inteira */
+  .grid > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .ctaWhatsapp { width: auto; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (992px+) — 3 colunas
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  .widgets { padding: 72px 0 80px; }
+
+  .grid {
+    grid-template-columns: 2fr 1.2fr 1.5fr;
+    gap: 48px;
+  }
+
+  /* Identidade volta para 1 coluna */
+  .grid > div:first-child {
+    grid-column: auto;
+  }
+
+  .logoWrap  { margin-bottom: 20px; }
+  .logo      { height: 40px; }
+  .logoText  { font-size: 18px; }
+  .colTitle  { font-size: 13px; margin-bottom: 24px; }
+  .contactLabel { width: 72px; }
+  .contactSep   { margin: 0 12px; }
+}

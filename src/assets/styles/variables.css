@@ -1,0 +1,90 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   KPRemote — CSS Custom Properties
+   Site: iot.leopessoa.eng.br  |  Público: B2B operacional (supermercados,
+   câmaras frias, indústria alimentícia)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Paleta KPRemote (azul cobalto industrial) ─────────────────────────── */
+
+  /* Fundos escuros das seções */
+  --iot-bg-deep:    #0d1f3c;                   /* azul noite — hero, footer, contato */
+  --iot-bg-section: #132547;                   /* azul cobalto — seções escuras */
+  --iot-bg-overlay: rgba(13, 31, 60, 0.92);   /* overlay sobre foto */
+  --iot-bg-card:    rgba(255, 255, 255, 0.07); /* card sobre fundo escuro */
+  --iot-bg-card-hover: rgba(255, 255, 255, 0.12);
+
+  /* Accent primário — azul elétrico (CTAs, destaques, números, icons) */
+  --iot-accent:      #00a8e8;                   /* azul elétrico / ciano industrial */
+  --iot-accent-dark: #007fbf;                   /* hover */
+  --iot-accent-bg:   rgba(0, 168, 232, 0.12);  /* fundo suave accent */
+
+  /* Accent de alerta / urgência (dor do cliente — perdas, multas, riscos) */
+  --iot-alert:      #f0522a;                    /* laranja-vermelho de alerta */
+  --iot-alert-dark: #cc3e1a;                    /* hover */
+  --iot-alert-bg:   rgba(240, 82, 42, 0.12);   /* fundo suave alerta */
+
+  /* Texto sobre fundo escuro */
+  --iot-text-primary:   #ffffff;
+  --iot-text-secondary: rgba(255, 255, 255, 0.75);
+  --iot-text-muted:     rgba(255, 255, 255, 0.50);
+
+  /* Bordas e separadores sobre fundo escuro */
+  --iot-border:       rgba(255, 255, 255, 0.12);
+  --iot-border-light: rgba(255, 255, 255, 0.06);
+
+  /* ── Identidade Leo Pessoa (fio condutor do ecossistema) ───────────────── */
+
+  /* Verde — WhatsApp e checkmarks (mantido igual em todos os sites) */
+  --color-whatsapp:      #25d366;
+  --color-whatsapp-dark: #1ebe5d;
+
+  /* Verde identidade (CTA WhatsApp, checkmarks de benefícios) */
+  --iot-cta-green:      #59ab66;
+  --iot-cta-green-dark: #4a9457;
+
+  /* ── Seções claras (fundo off-white) ───────────────────────────────────── */
+  --iot-bg-light:       #f4f4f2;  /* fundo padrão seção clara */
+  --iot-bg-light-alt:   #e8e6e2;  /* tom levemente mais escuro (grafismo triangular) */
+
+  /* ── Cores de texto (seções claras) ───────────────────────────────────── */
+  --color-text:       #363636;
+  --color-text-muted: #4b4342;
+  --color-white:      #ffffff;
+  --color-bg:         #ffffff;
+  --color-border:     #e0e6ea;
+  --color-border-light: #f1f1f1;
+
+  /* ── Feedback / sistema ───────────────────────────────────────────────── */
+  --color-success: #59ab66;
+  --color-warning: #fad10f;
+  --color-error:   #f3413f;
+  --color-info:    #2f94ce;
+
+  /* ── Tipografia ───────────────────────────────────────────────────────── */
+  --font-body:    'Roboto', sans-serif;
+  --font-heading: 'Catamaran', sans-serif;
+  --font-size-base:    16px;
+  --line-height-base:  28px;
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ── Espaçamento ─────────────────────────────────────────────────────── */
+  --spacing-xs:  5px;
+  --spacing-sm:  10px;
+  --spacing-md:  20px;
+  --spacing-lg:  30px;
+  --spacing-xl:  40px;
+  --spacing-xxl: 50px;
+
+  /* ── Container ───────────────────────────────────────────────────────── */
+  --container-max-width: 1200px;
+  --container-padding:   15px;
+
+  /* ── Outros ──────────────────────────────────────────────────────────── */
+  --border-radius-pill: 30px;
+  --transition-base: all 0.5s ease;
+  --transition-fast: all 300ms ease;
+}

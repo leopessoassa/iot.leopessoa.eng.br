@@ -1,0 +1,78 @@
+/* ══════════════════════════════════════════════════════
+   ThemeBtn — mobile-first
+   ══════════════════════════════════════════════════════ */
+
+.btn {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  /* mobile: sem nowrap — botões longos quebram linha */
+  white-space: normal;
+  word-break: break-word;
+  letter-spacing: 1.5px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 13px 20px 11px;
+  border-radius: 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-base);
+  font-family: var(--font-heading);
+  line-height: 1.4em;
+  box-sizing: border-box;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+/* ── Variantes ───────────────────────────────────────── */
+.primary {
+  background-color: var(--iot-accent);
+  border-color: var(--iot-accent);
+  color: #fff;
+}
+.primary:hover { background-color: var(--iot-accent-dark); border-color: var(--iot-accent-dark); color: #fff; }
+
+.outline {
+  background-color: transparent;
+  border-color: var(--iot-accent);
+  color: var(--iot-accent);
+}
+.outline:hover { background-color: var(--iot-accent); color: #fff; }
+
+.whatsapp {
+  background-color: var(--color-whatsapp);
+  border-color: var(--color-whatsapp);
+  color: #fff;
+}
+.whatsapp:hover { background-color: var(--color-whatsapp-dark); border-color: var(--color-whatsapp-dark); color: #fff; }
+
+.alert {
+  background-color: var(--iot-alert);
+  border-color: var(--iot-alert);
+  color: #fff;
+}
+.alert:hover { background-color: var(--iot-alert-dark); border-color: var(--iot-alert-dark); color: #fff; }
+
+/* ── Tamanhos — large só ativa padding extra em tablet+ ── */
+.large {
+  padding: 14px 24px 12px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+
+.small {
+  padding: 8px 16px 6px;
+  font-size: 12px;
+}
+
+/* ── Tablet+ ─────────────────────────────────────────── */
+@media (min-width: 480px) {
+  .large {
+    padding: 15px 44px 13px;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+}

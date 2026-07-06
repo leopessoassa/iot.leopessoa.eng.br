@@ -1,0 +1,291 @@
+/* ══════════════════════════════════════════════════════
+   CtaSection — mobile-first
+   Fundo: claro (#f4f4f2)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.section {
+  position: relative;
+  background-color: var(--iot-bg-light);
+  padding: 64px 0;
+}
+
+/* ── Layout — mobile: coluna única ───────────────────── */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ══════════════════════════════════════════════════════
+   Copy (lado esquerdo)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Eyebrow ─────────────────────────────────────────── */
+.eyebrow {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--iot-accent);
+  margin-bottom: 12px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background-color: var(--iot-accent);
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* ── Headline ────────────────────────────────────────── */
+.headline {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.15em;
+  color: var(--color-text);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+
+.headlineAccent { color: var(--iot-accent); }
+
+/* ── Texto ───────────────────────────────────────────── */
+.text {
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+}
+
+.text strong {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════════════════════
+   3 Passos do piloto
+   ══════════════════════════════════════════════════════ */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 28px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.step:first-child {
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Número do passo — círculo accent */
+.stepNumber {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background-color: var(--iot-accent);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+}
+
+.stepText {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-text-muted);
+}
+
+/* ══════════════════════════════════════════════════════
+   Eliminação de objeções
+   ══════════════════════════════════════════════════════ */
+
+.objectionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.objection {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.4em;
+}
+
+/* Ícone de check verde — identidade Leo Pessoa */
+.objection i {
+  color: var(--iot-cta-green);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ══════════════════════════════════════════════════════
+   CTA Box (lado direito)
+   ══════════════════════════════════════════════════════ */
+
+/* Borda gradiente — accent azul → alert laranja */
+.ctaBox {
+  border-radius: 2px;
+  padding: 2px;
+  background-image: linear-gradient(
+    145deg,
+    var(--iot-accent) 0%,
+    var(--iot-bg-deep) 50%,
+    var(--iot-alert) 100%
+  );
+  box-shadow: 0 12px 48px rgba(13, 31, 60, 0.18);
+}
+
+.ctaBoxInner {
+  background-color: var(--iot-bg-deep);
+  border-radius: 1px;
+  padding: 28px 20px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* botão ocupa largura total */
+}
+
+.ctaBoxLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--iot-text-muted);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* Telefone */
+.ctaBoxPhone {
+  font-size: 13px;
+  color: var(--iot-text-muted);
+  margin-top: 14px;
+  text-align: center;
+}
+
+.ctaBoxPhoneLink {
+  color: var(--iot-text-secondary);
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+.ctaBoxPhoneLink:hover { color: var(--iot-accent); }
+
+/* Divisor */
+.ctaBoxDivider {
+  width: 36px;
+  height: 1px;
+  background-color: var(--iot-border);
+  margin: 20px auto;
+}
+
+/* Badges de diferenciais */
+.ctaBoxBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.ctaBoxBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--iot-text-muted);
+  background-color: var(--iot-bg-card);
+  border: 1px solid var(--iot-border-light);
+  border-radius: 2px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.ctaBoxBadge i {
+  color: var(--iot-accent);
+  font-size: 10px;
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet (480px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 480px) {
+  .headline    { font-size: 30px; }
+  .ctaBoxInner { padding: 32px 28px 28px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet largo (768px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .headline { font-size: 34px; }
+  .text     { font-size: 16px; line-height: 28px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (992px+) — 2 colunas
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  .section { padding: 96px 0; }
+
+  .inner {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .headline     { font-size: 36px; }
+  .objection    { font-size: 15px; }
+  .ctaBoxInner  { padding: 40px 32px 36px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop largo (1200px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  .inner   { grid-template-columns: 1fr 420px; }
+  .headline { font-size: 40px; }
+}

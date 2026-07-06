@@ -1,0 +1,79 @@
+/* ══════════════════════════════════════════════════════
+   SectionTitle — mobile-first
+   ══════════════════════════════════════════════════════ */
+
+.sectionTitle {
+  position: relative;
+  margin-bottom: 36px;
+}
+
+/* ── Eyebrow ─────────────────────────────────────────── */
+.eyebrow {
+  display: block; /* block evita overflow horizontal */
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+}
+
+.blue .eyebrow  { color: var(--iot-accent); }
+.alert .eyebrow { color: var(--iot-alert); }
+
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  margin-top: 8px;
+}
+
+.center .eyebrow::after { margin-left: auto; margin-right: auto; }
+.left .eyebrow::after   { margin-left: 0; }
+.right .eyebrow::after  { margin-left: auto; }
+
+.blue .eyebrow::after  { background-color: var(--iot-accent); }
+.alert .eyebrow::after { background-color: var(--iot-alert); }
+
+/* ── Título — mobile base: 28px ───────────────────────── */
+.sectionTitle h2 {
+  font-size: 28px;
+  line-height: 1.2em;
+  color: var(--color-text);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+}
+
+.light h2 { color: var(--iot-text-primary); }
+
+/* ── Subtítulo ───────────────────────────────────────── */
+.subtitle {
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--color-text-muted);
+  margin-top: 14px;
+}
+
+.center .subtitle { margin-left: auto; margin-right: auto; }
+.left .subtitle   { margin-left: 0; }
+.light .subtitle  { color: var(--iot-text-secondary); }
+
+/* ── Alinhamentos ────────────────────────────────────── */
+.center { text-align: center; }
+.left   { text-align: left; }
+.right  { text-align: right; }
+
+/* ── Tablet (480px+) ─────────────────────────────────── */
+@media (min-width: 480px) {
+  .sectionTitle h2 { font-size: 34px; }
+  .sectionTitle    { margin-bottom: 40px; }
+}
+
+/* ── Desktop (768px+) ────────────────────────────────── */
+@media (min-width: 768px) {
+  .sectionTitle h2 { font-size: 44px; }
+  .sectionTitle    { margin-bottom: 50px; }
+  .subtitle        { font-size: 16px; line-height: 28px; max-width: 640px; }
+}

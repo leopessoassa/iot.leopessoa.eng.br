@@ -1,0 +1,22 @@
+.btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  background-color: var(--iot-accent);
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  transition: var(--transition-fast);
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--iot-accent-dark);
+}

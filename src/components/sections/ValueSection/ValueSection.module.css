@@ -1,0 +1,217 @@
+/* ══════════════════════════════════════════════════════
+   ValueSection — mobile-first
+   Fundo: azul cobalto (#132547)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.section {
+  position: relative;
+  background-color: var(--iot-bg-section);
+  padding: 64px 0;
+}
+
+/* ── Lista de pilares — mobile: coluna única ─────────── */
+.pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* separador visual entre cards */
+}
+
+/* ── Card ────────────────────────────────────────────── */
+.pillar {
+  position: relative;
+  padding: 28px 20px 24px;
+  background-color: var(--iot-bg-card);
+  /* sem overflow:hidden aqui — o número NÃO é mais absolute */
+}
+
+/* Linha accent no topo */
+.pillar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 40px;
+  height: 3px;
+  background-color: var(--iot-accent);
+}
+
+/* ── Cabeçalho: ícone + número na mesma linha ────────── */
+/*
+ * Estrutura flex: ícone à esquerda, número decorativo à direita.
+ * O número é parte do fluxo normal — sem position:absolute.
+ * Isso evita completamente o overlap com o título.
+ */
+.pillarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+/* ── Ícone ───────────────────────────────────────────── */
+.pillarIconWrap {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--iot-accent-bg);
+  border-radius: 2px;
+}
+
+.pillarIcon {
+  font-size: 16px;
+  color: var(--iot-accent);
+}
+
+/* ── Número ordinal — decorativo, no fluxo ───────────── */
+.pillarNumber {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--iot-accent);
+  opacity: 0.10;
+  line-height: 1em;
+  letter-spacing: -2px;
+  /* alinha ao fundo do header para criar profundidade */
+  align-self: flex-end;
+}
+
+/* ── Títulos ─────────────────────────────────────────── */
+.pillarTitle {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--iot-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  /* sem padding-right — o número já não compete */
+}
+
+.pillarSubtitle {
+  font-size: 13px;
+  color: var(--iot-text-muted);
+  line-height: 1.5em;
+}
+
+/* ── Linha separadora ────────────────────────────────── */
+.pillarLine {
+  width: 100%;
+  height: 1px;
+  background-color: var(--iot-border);
+  margin: 18px 0;
+}
+
+/* ── Bullets ─────────────────────────────────────────── */
+.bullets {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--iot-text-secondary);
+}
+
+/* Traço accent — substitui bullet point */
+.bulletDash {
+  flex-shrink: 0;
+  display: block;
+  width: 12px;
+  height: 1px;
+  background-color: var(--iot-accent);
+  margin-top: 11px;
+}
+
+/* ── Alert tag ───────────────────────────────────────── */
+.alertTag {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background-color: var(--iot-alert-bg);
+  border: 1px solid rgba(240, 82, 42, 0.25);
+  border-left: 3px solid var(--iot-alert);
+  border-radius: 2px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--iot-alert);
+  font-style: italic;
+  line-height: 1.5em;
+}
+
+.alertTag i {
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+.alertTag span {
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════════════════
+   Tablet (600px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 600px) {
+  .pillar        { padding: 32px 28px 28px; }
+  .pillar::before { left: 28px; width: 44px; }
+  .pillarTitle   { font-size: 20px; }
+  .pillarNumber  { font-size: 56px; }
+  .pillarIconWrap { width: 44px; height: 44px; min-width: 44px; }
+  .pillarIcon    { font-size: 18px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (992px+) — 3 colunas lado a lado
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  .section {
+    padding: 96px 0;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    /* todos os cards na mesma altura */
+    align-items: stretch;
+  }
+
+  .pillar {
+    padding: 44px 32px 40px;
+    /* hover sutil em desktop */
+    transition: background-color 0.25s ease;
+  }
+
+  .pillar:hover {
+    background-color: var(--iot-bg-card-hover);
+  }
+
+  .pillar::before { left: 32px; width: 48px; }
+
+  .pillarTitle   { font-size: 22px; }
+  .pillarSubtitle { font-size: 14px; }
+  .pillarNumber  { font-size: 64px; opacity: 0.08; }
+  .pillarLine    { margin: 24px 0; }
+  .bullets       { margin-bottom: 24px; gap: 12px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop largo (1200px+)
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  .pillar { padding: 48px 36px 44px; }
+  .pillar::before { left: 36px; }
+}

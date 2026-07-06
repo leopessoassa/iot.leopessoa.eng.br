@@ -1,0 +1,37 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--iot-bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: spin 1s linear infinite;
+}
+
+.ring:nth-child(1) {
+  border-top-color: var(--iot-accent);
+}
+
+.ring:nth-child(2) {
+  border-bottom-color: var(--iot-alert);
+  animation-duration: 1.5s;
+  animation-direction: reverse;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

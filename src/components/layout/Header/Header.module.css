@@ -1,0 +1,296 @@
+/* ══════════════════════════════════════════════════════
+   Header — mobile-first
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base mobile ─────────────────────────────────────── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  background-color: transparent;
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.sticky {
+  background-color: var(--iot-bg-deep);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Inner ───────────────────────────────────────────── */
+.inner {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+  height: 64px; /* mobile: mais compacto */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo ────────────────────────────────────────────── */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0;
+  text-decoration: none;
+}
+
+.logoImg {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* Logo texto — fallback quando imagem não carrega */
+.logoText {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+}
+
+.logoText strong {
+  color: var(--iot-accent);
+  font-weight: 900;
+}
+
+/* ── Nav desktop — oculta em mobile ─────────────────── */
+.nav { display: none; }
+
+/* ── Toggler — visível em mobile ─────────────────────── */
+.toggler {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  -webkit-tap-highlight-color: transparent; /* remove destaque azul no iOS */
+}
+
+.toggler span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 1px;
+  transition: var(--transition-fast);
+}
+
+/* ── Mobile overlay ──────────────────────────────────── */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(13, 31, 60, 0.7);
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.mobileOverlayOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Menu mobile (drawer lateral) ────────────────────── */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(300px, 85vw);
+  height: 100%;
+  background-color: var(--iot-bg-deep);
+  z-index: 310;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.mobileMenuOpen { transform: translateX(0); }
+
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--iot-border);
+}
+
+.mobileClose {
+  background: transparent;
+  border: 1px solid var(--iot-border);
+  color: rgba(255, 255, 255, 0.7);
+  width: 36px;
+  height: 36px;
+  min-width: 36px; /* evita encolher */
+  border-radius: 2px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobileClose:hover { border-color: var(--iot-accent); color: var(--iot-accent); }
+
+.mobileNav {
+  list-style: none;
+  margin: 0;
+  padding: 12px 0;
+}
+
+.mobileLink {
+  display: block;
+  padding: 14px 20px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid var(--iot-border-light);
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+.mobileLink:hover {
+  color: #fff;
+  background-color: var(--iot-bg-card);
+  padding-left: 28px;
+}
+
+.mobileCta {
+  margin: 16px 20px 0;
+  display: block;
+  text-align: center;
+  background-color: var(--iot-accent);
+  color: #fff !important;
+  border-radius: 2px;
+  border-bottom: none !important;
+  padding: 14px 20px !important;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.mobileCta:hover {
+  background-color: var(--iot-accent-dark) !important;
+  padding-left: 20px !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   Desktop (1024px+) — nav visível, toggler oculto
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  .inner   { height: 80px; padding: 0 var(--container-padding); }
+  .logo img { height: 44px; }
+  .toggler { display: none; }
+
+  .nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .navList {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navLink {
+    display: block;
+    padding: 6px 16px;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    transition: var(--transition-fast);
+    border-radius: 2px;
+  }
+
+  .navLink span {
+    position: relative;
+    display: block;
+  }
+
+  .navLink span::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--iot-accent);
+    transition: width 0.3s ease;
+  }
+
+  .navLink:hover { color: #fff; }
+  .navLink:hover span::after { width: 100%; }
+
+  .navCta {
+    color: var(--iot-accent) !important;
+    border: 1px solid rgba(0, 168, 232, 0.4);
+    padding: 6px 18px;
+    margin-left: 8px;
+  }
+  .navCta:hover {
+    background-color: var(--iot-accent);
+    border-color: var(--iot-accent);
+    color: #fff !important;
+  }
+  .navCta span::after { display: none; }
+}
+
+/* ── Logo texto no drawer mobile ─────────────────────── */
+.mobileLogoText {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+}
+
+.mobileLogoText strong {
+  color: var(--iot-accent);
+  font-weight: 900;
+}
+
+/* ── Rodapé do drawer ────────────────────────────────── */
+.mobileFooter {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 1px solid var(--iot-border-light);
+}
+
+.mobileFooterText {
+  font-size: 12px;
+  color: var(--iot-text-muted);
+}
+
+.mobileFooterLink {
+  color: var(--iot-accent);
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.mobileFooterLink:hover {
+  color: #fff;
+}
+
+/* ── Logo em desktop (1024px+) ───────────────────────── */
+@media (min-width: 1024px) {
+  .logoImg  { height: 44px; }
+  .logoText { font-size: 20px; }
+}
