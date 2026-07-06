@@ -10,7 +10,7 @@ Público-alvo B2B: gerentes de operações, donos e diretores de supermercados, 
 
 | Domínio | Público | Paleta |
 |---|---|---|
-| `leopessoa.eng.br` | Redirecionador institucional | Neutro/petróleo |
+| `leopessoa.eng.br` | Redirecionador institucional | Chumbo quente + âmbar |
 | `parceiros.leopessoa.eng.br` | Arquitetos e designers (B2B) | Azul petróleo + dourado |
 | `casainteligente.leopessoa.eng.br` | Cliente final residencial (B2C) | Verde + laranja |
 | `iot.leopessoa.eng.br` | Empresas c/ perecíveis (B2B IoT) | **Azul cobalto + azul elétrico** |
@@ -51,10 +51,6 @@ Definida em `src/assets/styles/variables.css`:
 --iot-bg-light-alt: #e8e6e2
 ```
 
-### Por que essa paleta
-
-O azul cobalto (`#0d1f3c`) é da mesma família de temperatura que o petróleo do site de parceiros (`#0b1f2a`), mas visivelmente diferente — o visitante do site principal percebe que é uma área distinta. O azul elétrico (`#00a8e8`) remete a tecnologia, dashboard, monitoramento — linguagem visual universal de IoT/sensores.
-
 ## Estrutura de seções — ritmo claro/escuro
 
 ```
@@ -69,21 +65,26 @@ ClientsSection  → CLARO  (#f4f4f2)  — Quem Já Usa (carrossel de clientes)
 Footer          → ESCURO (#0d1f3c)
 ```
 
-O ritmo alternado ESCURO→CLARO é intencional e deve ser mantido. Cada transição usa o grafismo triangular via `clip-path` com `margin-top` negativo.
+O ritmo alternado ESCURO→CLARO é intencional e deve ser mantido.
 
-### Sistema de triângulos de transição
+---
 
-Padrão herdado do ecossistema Leo Pessoa. Valores por breakpoint:
+## Sistema de triângulos de transição
 
-| Breakpoint | `margin-top` | profundidade do triângulo | `section::before top` |
+Padrão herdado do ecossistema Leo Pessoa. Toda transição de cor usa grafismo triangular.
+
+### Valores por breakpoint
+
+| Breakpoint | `margin-top` | altura do triângulo | `section::before top` |
 |---|---|---|---|
 | mobile base | `-40px` | `40px` | `40px` |
 | `768px+` | `-80px` | `80px` | `80px` |
 | `992px+` | `-190px` | `120px` | `120px` |
 
-Cada seção tem `z-index` incremental (2→3→4→5→6) para manter a pilha correta.
+Z-index incremental por seção: `SolutionSection=2 → Value=3 → Segments=4 → Cta=5 → Clients=6`
 
-JSX obrigatório em toda seção com triângulo:
+### JSX obrigatório em toda seção com triângulo
+
 ```tsx
 <section className={styles.section}>
   <div className={styles.backgroundLayers} aria-hidden="true">
@@ -97,6 +98,44 @@ JSX obrigatório em toda seção com triângulo:
   </div>
 </section>
 ```
+
+### ⚠️ Regra crítica de padding — sobreposição de conteúdo
+
+**O triângulo da próxima seção avança N pixels para dentro da seção atual.** O conteúdo no final da seção atual (último botão, último card, último item) fica coberto se não houver `padding-bottom` suficiente.
+
+**Fórmula:**
+```
+padding-bottom da seção atual = |margin-top da próxima| + respiro visual
+
+mobile  (-40px):  padding-bottom mínimo = 80px   (40 overlap + 40 respiro)
+768px   (-80px):  padding-bottom mínimo = 120px  (80 overlap + 40 respiro)
+992px   (-190px): padding-bottom mínimo = 240px  (190 overlap + 50 respiro)
+```
+
+**Valores aplicados nas seções predecessoras:**
+
+| Seção (predecessor) | pb mobile | pb 768px | pb 992px |
+|---|---|---|---|
+| `SolutionSection` | `80px` | `120px` | `240px` |
+| `ValueSection` | `80px` | `120px` | `240px` |
+| `SegmentsSection` | `80px` | `120px` | `240px` |
+| `CtaSection` | `80px` | `120px` | `240px` |
+
+**`HeroSection` é exceção:** usa `min-height: 100svh` com `align-items: center` — o conteúdo fica centralizado verticalmente, não no rodapé. Padding-bottom extra criaria espaço vazio desnecessário.
+
+**`ClientsSection` não precisa:** é a última seção antes do Footer, que não tem triângulo de entrada.
+
+> **Atenção:** Toda vez que adicionar conteúdo ao final de uma seção predecessora, ou alterar o `margin-top` de qualquer seção, recalcular o `padding-bottom` usando a fórmula acima.
+
+### Toque accent nos triângulos decorativos
+
+O triângulo decorativo secundário (canto direito) usa `rgba(0, 168, 232, 0.08~0.15)` — toque sutil do accent azul elétrico do KPRemote.
+
+### Respiro do conteúdo após o triângulo (contentWrapper)
+
+O `contentWrapper` tem `padding-top: 48px` em mobile para garantir que o conteúdo respire após a ponta do triângulo. Em `768px+` isso é zerado — o `padding` da `.section` já garante o respiro.
+
+---
 
 ## Componentes e arquivos de conteúdo editável
 
@@ -114,9 +153,9 @@ JSX obrigatório em toda seção com triângulo:
 
 ## Imagens do Hero — rotação aleatória
 
-O `HeroSection` sorteia uma imagem a cada carregamento de página via `useMemo + Math.random()`.
+O `HeroSection` sorteia uma imagem a cada carregamento via `useMemo + Math.random()`.
 
-Pool atual em `/public/images/hero/`:
+Pool em `/public/images/hero/`:
 ```
 hero-01.png — perecíveis premium em supermercado
 hero-02.png — balcão refrigerado
@@ -125,41 +164,25 @@ hero-05.png — dispositivo Smart IoT
 hero-07.png — análise de monitoramento em tablet
 ```
 
-Originais em `/public/referencias/apresentacao interativa/` (não usar diretamente na build).
-
-Para adicionar imagens: copiar para `/public/images/hero/` e incluir o caminho no array `heroImages` em `HeroSection.tsx`.
+Originais em `/public/referencias/apresentacao interativa/` — não usar diretamente na build.
 
 ## ClientsSection — carrossel de logos
 
-Carrossel CSS puro via `@keyframes` (sem JS, sem biblioteca). Scroll infinito horizontal com fades laterais.
+Carrossel CSS puro via `@keyframes` (sem JS). Scroll infinito horizontal com fades laterais.
 
 - Logos em `/public/images/clients/` (ainda não criada — usando placeholders textuais)
-- Para ativar logo real: adicionar `src` e `alt` no objeto do array `clients` em `ClientsSection.tsx`
-- Logos devem ser PNG com fundo transparente, altura ~60px
-- CSS aplica `filter: grayscale(100%)` no estado normal e cor no hover
-- Respeita `prefers-reduced-motion`: animação desativada quando preferência do sistema ativa
+- Para ativar logo real: adicionar `src` e `alt` no objeto do array `clients`
+- Logos: PNG fundo transparente, altura ~60px
+- Grayscale no estado normal, cor no hover
+- Respeita `prefers-reduced-motion`
 
-## Utilitário WhatsApp
-
-`src/utils/whatsapp.ts` — centraliza toda a lógica. **Nunca hardcodar número ou URL no componente.**
-
-```ts
-whatsappUrl(message)      // dentro de componentes — detecta mobile/desktop
-whatsappStaticUrl(msg?)   // fora de componentes (arrays, constantes de módulo)
-WHATSAPP_DISPLAY          // número formatado para exibição: '(83) 98207-8702'
-```
-
-## Fontes
-
-Carregadas no `index.html` via Google Fonts:
-- **Catamaran** — títulos, eyebrows, números ordinais, botões
-- **Roboto** — corpo do texto
+---
 
 ## Regras de CSS — mobile-first obrigatório
 
-**Todos os componentes usam mobile-first:** estilos base definem o comportamento mobile, e `@media (min-width: X)` escala para cima. **Nunca usar `max-width` media queries.**
+**Todos os componentes usam mobile-first.** Nunca usar `max-width` media queries.
 
-Breakpoints padrão do projeto:
+Breakpoints:
 ```
 480px  — tablet pequeno
 600px  — tablet
@@ -170,29 +193,41 @@ Breakpoints padrão do projeto:
 
 ### Regras críticas aprendidas em produção
 
-1. **Proof bar / grids com separadores:** nunca colocar `<div>` de separador no DOM misturado com itens. Usar `border-right` / `border-left` CSS nos próprios itens.
-2. **Números ordinais decorativos:** nunca usar `position: absolute` em mobile — saem do fluxo e colidem com o conteúdo. Usar `flex` row com `justify-content: space-between` e `opacity` baixa.
-3. **Botões em mobile:** sem `white-space: nowrap` no base do ThemeBtn. O botão deve quebrar linha, não causar overflow horizontal.
-4. **`overflow-x: hidden`** no `.page-wrapper`, não no `body` — evita quebrar `position: fixed` (header sticky, scroll-to-top).
-5. **`min-height: 100svh`** no hero em vez de `100vh` — `svh` desconta a barra do browser no iOS.
-6. **Triângulos com z-index:** cada seção com triângulo precisa de `z-index` incremental. A seção que vem "por cima" visualmente deve ter z-index maior.
+1. **Proof bar / grids com separadores:** nunca usar `<div>` de separador no DOM. Usar `border-right`/`border-left` CSS nos próprios itens.
+2. **Números ordinais decorativos:** nunca `position: absolute` em mobile — colidem com o conteúdo. Usar `flex` row com `justify-content: space-between` e `opacity` baixa.
+3. **Botões em mobile:** sem `white-space: nowrap`. O botão deve quebrar linha, não causar overflow.
+4. **`overflow-x: hidden`** no `.page-wrapper`, não no `body` — evita quebrar `position: fixed`.
+5. **`min-height: 100svh`** no hero — `svh` desconta a barra do browser no iOS.
+6. **`padding-bottom` nas predecessoras:** ver fórmula de triângulo acima — regra mais crítica.
+7. **`padding-top` no contentWrapper:** `48px` em mobile, zerado em `768px+`.
 
-## Identidade compartilhada do ecossistema Leo Pessoa
+---
 
-Independente do site, manter:
-- Fontes: **Catamaran + Roboto**
-- Grafismo triangular entre seções (`clip-path` + `margin-top` negativo)
-- `border-radius: 2px` nos elementos principais — cantos quase retos, linguagem premium
-- Verde `#59ab66` para checkmarks e CTAs WhatsApp em todos os sites
+## Utilitário WhatsApp
+
+`src/utils/whatsapp.ts` — nunca hardcodar número ou URL no componente.
+
+```ts
+whatsappUrl(message)      // dentro de componentes — detecta mobile/desktop
+whatsappStaticUrl(msg?)   // fora de componentes (arrays, constantes)
+WHATSAPP_DISPLAY          // '(83) 98207-8702'
+```
+
+## Fontes
+
+- **Catamaran** — títulos, eyebrows, números ordinais, botões
+- **Roboto** — corpo do texto
+
+---
 
 ## Conteúdo de referência
 
 Materiais da Keepin em `/public/referencias/` (não incluídos na build):
-- `Folder - Keepin soluções Especialistas em IoT (4).pdf` — institucional da fabricante
-- `Folder - KPRemote - Serviços de Saúde.pdf` — versão para hospitais/farmácias
-- `apresentacao interativa/apresenta_o_comercial_premium.html` — 8 slides comerciais para supermercados
+- `Folder - Keepin soluções Especialistas em IoT (4).pdf`
+- `Folder - KPRemote - Serviços de Saúde.pdf`
+- `apresentacao interativa/apresenta_o_comercial_premium.html` — 8 slides comerciais
 
-### Dados-chave do produto (extraídos do material)
+### Dados-chave do produto
 
 - Monitoramento de **10 em 10 minutos**, 24h/365 dias
 - Redução comprovada de **70% das perdas** por desvios de temperatura
@@ -212,7 +247,7 @@ Materiais da Keepin em `/public/referencias/` (não incluídos na build):
 | RDC 34/2014 | Hemoterapia |
 | RDC 978/2025 | Análises Clínicas (EAC) |
 
-## Competidores mencionados no material
+### Competidores
 
-- **Syos (SP/RJ)** — atendimento por chatbot, custo alto, alertas só por e-mail e app proprietário
-- **KPRemote diferencial:** suporte presencial em João Pessoa, até 3x mais econômico, alertas diretos no WhatsApp sem app proprietário
+- **Syos (SP/RJ)** — chatbot, custo alto, alertas só por e-mail/app proprietário
+- **KPRemote diferencial:** presencial em JP, até 3x mais econômico, WhatsApp direto

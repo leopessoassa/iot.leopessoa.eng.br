@@ -57,6 +57,7 @@
 .contentWrapper {
   position: relative;
   z-index: 1;
+  padding-top: 48px; /* respiro visual apos o triangulo em mobile */
 }
 
 /* ══════════════════════════════════════════════════════
@@ -217,6 +218,8 @@
    Tablet largo (768px+) — triângulos maiores
    ══════════════════════════════════════════════════════ */
 @media (min-width: 768px) {
+  /* Remove padding-top extra — section padding ja garante respiro */
+  .contentWrapper { padding-top: 0; }
   .section {
     margin-top: -80px;
     padding: 120px 0 64px;

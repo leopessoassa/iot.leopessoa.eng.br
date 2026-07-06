@@ -9,7 +9,7 @@
 .section {
   position: relative;
   margin-top: -40px;
-  padding: 80px 0 64px;
+  padding: 80px 0 80px;  /* pb = 40px overlap + 40px respiro */
   z-index: 3; /* acima da SolutionSection (z-index: 2) */
 }
 
@@ -63,6 +63,7 @@
 .contentWrapper {
   position: relative;
   z-index: 1;
+  padding-top: 48px; /* respiro visual apos o triangulo em mobile */
 }
 
 /* ── Lista de pilares — mobile: coluna única ─────────── */
@@ -276,9 +277,11 @@
    ══════════════════════════════════════════════════════ */
 
 @media (min-width: 768px) {
+  /* Remove padding-top extra — section padding ja garante respiro */
+  .contentWrapper { padding-top: 0; }
   .section {
     margin-top: -80px;
-    padding: 130px 0 72px;
+    padding: 130px 0 120px;
   }
 
   .section::before { top: 80px; height: calc(100% - 80px); }
@@ -297,7 +300,7 @@
 @media (min-width: 992px) {
   .section {
     margin-top: -190px;
-    padding: 230px 0 96px;
+    padding: 230px 0 240px;
   }
 
   .section::before { top: 120px; height: calc(100% - 120px); }

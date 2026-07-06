@@ -9,7 +9,7 @@
 .section {
   position: relative;
   margin-top: -40px;   /* mobile: overlap menor */
-  padding: 80px 0 60px;
+  padding: 80px 0 80px;  /* pb = 40px overlap + 40px respiro */
   z-index: 2;
 }
 
@@ -67,6 +67,7 @@
 .contentWrapper {
   position: relative;
   z-index: 1;
+  padding-top: 48px; /* respiro visual apos o triangulo em mobile */
 }
 
 /* ══════════════════════════════════════════════════════
@@ -289,9 +290,11 @@
    Tablet largo (768px+) — triângulos maiores
    ══════════════════════════════════════════════════════ */
 @media (min-width: 768px) {
+  /* Remove padding-top extra — section padding ja garante respiro */
+  .contentWrapper { padding-top: 0; }
   .section {
     margin-top: -80px;
-    padding: 130px 0 72px;
+    padding: 130px 0 120px;  /* pb = 80px overlap + 40px respiro */
   }
 
   .section::before { top: 80px; height: calc(100% - 80px); }
@@ -317,7 +320,7 @@
 @media (min-width: 992px) {
   .section {
     margin-top: -190px;
-    padding: 230px 0 88px;
+    padding: 230px 0 240px;  /* pb = 190px overlap + 50px respiro */
   }
 
   .section::before { top: 120px; height: calc(100% - 120px); }
