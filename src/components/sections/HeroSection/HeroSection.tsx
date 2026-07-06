@@ -2,21 +2,39 @@
  * HeroSection — KPRemote
  *
  * Bloco 1: A Promessa Central
- * Fundo: azul noite (#0d1f3c) com overlay sobre imagem
+ * Fundo: azul noite (#0d1f3c) com overlay sobre imagem aleatória
  *
- * Estrutura:
- *  - Eyebrow: contexto de segmento + localização
- *  - Headline: promessa direta de proteção financeira
- *  - Subheadline: o custo real da cegueira de 21h
- *  - 2 CTAs: WhatsApp (principal) + âncora para a solução
- *  - Proof bar: 3 números que ancoram credibilidade
- *  - Alert badge: urgência operacional — elemento visual diferencial
+ * Imagem de fundo:
+ *  - Escolhida aleatoriamente a cada carregamento de página via useMemo
+ *  - Pool de 5 imagens em /public/images/hero/
+ *  - O overlay garante legibilidade independente de qual imagem aparecer
+ *
+ * Para adicionar/remover imagens: editar o array `heroImages` abaixo.
  */
+import { useMemo } from 'react';
 import ThemeBtn from '@/components/ui/ThemeBtn/ThemeBtn';
 import { whatsappUrl } from '@/utils/whatsapp';
 import styles from './HeroSection.module.css';
 
+/** Pool de imagens do hero. Adicione ou remova caminhos conforme necessário. */
+const heroImages = [
+  '/images/hero/hero-01.png', // perecíveis premium em supermercado
+  '/images/hero/hero-02.png', // balcão refrigerado
+  '/images/hero/hero-04.png', // câmara fria inox
+  '/images/hero/hero-05.png', // dispositivo Smart IoT
+  '/images/hero/hero-07.png', // análise de monitoramento em tablet
+];
+
 export default function HeroSection() {
+  /**
+   * useMemo garante que a imagem é sorteada uma única vez por montagem.
+   * Não muda durante a navegação na mesma sessão — muda a cada novo load.
+   */
+  const bgImage = useMemo(() => {
+    const idx = Math.floor(Math.random() * heroImages.length);
+    return heroImages[idx];
+  }, []);
+
   return (
     <section className={styles.hero} id="inicio" aria-label="Seção principal">
 
@@ -24,7 +42,7 @@ export default function HeroSection() {
       <div className={styles.bgLayer} aria-hidden="true">
         <div
           className={styles.bgImage}
-          style={{ backgroundImage: 'url(/images/background/hero-bg.webp)' }}
+          style={{ backgroundImage: `url(${bgImage})` }}
         />
         <div className={styles.bgOverlay} />
       </div>
@@ -84,7 +102,7 @@ export default function HeroSection() {
             />
           </div>
 
-          {/* Proof bar — sem dividers no DOM, separação via border CSS */}
+          {/* Proof bar */}
           <div className={styles.proofBar}>
             <div className={styles.proofItem}>
               <strong className={styles.proofNumber}>24/7</strong>

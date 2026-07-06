@@ -28,7 +28,7 @@ Definida em `src/assets/styles/variables.css`:
 
 ```css
 /* Fundos escuros */
---iot-bg-deep:    #0d1f3c   /* azul noite — hero, footer */
+--iot-bg-deep:    #0d1f3c   /* azul noite — hero, cta, footer */
 --iot-bg-section: #132547   /* azul cobalto — ValueSection */
 --iot-bg-overlay: rgba(13,31,60,0.92)
 
@@ -55,30 +55,89 @@ Definida em `src/assets/styles/variables.css`:
 
 O azul cobalto (`#0d1f3c`) é da mesma família de temperatura que o petróleo do site de parceiros (`#0b1f2a`), mas visivelmente diferente — o visitante do site principal percebe que é uma área distinta. O azul elétrico (`#00a8e8`) remete a tecnologia, dashboard, monitoramento — linguagem visual universal de IoT/sensores.
 
-## Estrutura de seções
+## Estrutura de seções — ritmo claro/escuro
 
 ```
-Header (fixo, transparent → sticky)
+Header          → fixo, transparent → sticky azul profundo
   ↓
-HeroSection         → escuro (#0d1f3c)   — A Promessa Central
-SolutionSection     → claro  (#f4f4f2)   — Como Funciona (3 pilares + 6 capacidades)
-ValueSection        → escuro (#132547)   — Por Que KPRemote (3 pilares de negócio)
-SegmentsSection     → escuro (#0d1f3c)   — Para Quem É (6 segmentos)
-CtaSection          → claro  (#f4f4f2)   — Projeto Piloto
-Footer              → escuro (#0d1f3c)
+HeroSection     → ESCURO (#0d1f3c)  — A Promessa Central
+SolutionSection → CLARO  (#f4f4f2)  — Como Funciona (3 pilares + 6 capacidades)
+ValueSection    → ESCURO (#132547)  — Por Que KPRemote (3 pilares de negócio)
+SegmentsSection → CLARO  (#f4f4f2)  — Para Quem É (6 segmentos de mercado)
+CtaSection      → ESCURO (#0d1f3c)  — Projeto Piloto (copy + CTA box)
+ClientsSection  → CLARO  (#f4f4f2)  — Quem Já Usa (carrossel de clientes)
+Footer          → ESCURO (#0d1f3c)
 ```
 
-## Arquivos de conteúdo editável
+O ritmo alternado ESCURO→CLARO é intencional e deve ser mantido. Cada transição usa o grafismo triangular via `clip-path` com `margin-top` negativo.
+
+### Sistema de triângulos de transição
+
+Padrão herdado do ecossistema Leo Pessoa. Valores por breakpoint:
+
+| Breakpoint | `margin-top` | profundidade do triângulo | `section::before top` |
+|---|---|---|---|
+| mobile base | `-40px` | `40px` | `40px` |
+| `768px+` | `-80px` | `80px` | `80px` |
+| `992px+` | `-190px` | `120px` | `120px` |
+
+Cada seção tem `z-index` incremental (2→3→4→5→6) para manter a pilha correta.
+
+JSX obrigatório em toda seção com triângulo:
+```tsx
+<section className={styles.section}>
+  <div className={styles.backgroundLayers} aria-hidden="true">
+    <div className={styles.triangleOverlay} />
+    <div className={styles.imageBg} />
+  </div>
+  <div className={styles.contentWrapper}>
+    <div className="auto-container">
+      {/* conteúdo */}
+    </div>
+  </div>
+</section>
+```
+
+## Componentes e arquivos de conteúdo editável
 
 | O que mudar | Arquivo |
 |---|---|
 | Menu de navegação | `src/data/navigation.ts` |
 | Número WhatsApp | `src/utils/whatsapp.ts` — `WHATSAPP_PHONE` |
 | Número formatado | `src/utils/whatsapp.ts` — `WHATSAPP_DISPLAY` |
-| Módulos da solução | `SolutionSection.tsx` — array `pillars` e `capabilities` |
+| Imagens do hero | `HeroSection.tsx` — array `heroImages` |
+| Pilares da solução | `SolutionSection.tsx` — arrays `pillars` e `capabilities` |
 | Pilares de valor | `ValueSection.tsx` — array `pillars` |
 | Segmentos | `SegmentsSection.tsx` — array `segments` |
 | Passos do piloto | `CtaSection.tsx` — array `steps` |
+| Clientes no carrossel | `ClientsSection.tsx` — array `clients` |
+
+## Imagens do Hero — rotação aleatória
+
+O `HeroSection` sorteia uma imagem a cada carregamento de página via `useMemo + Math.random()`.
+
+Pool atual em `/public/images/hero/`:
+```
+hero-01.png — perecíveis premium em supermercado
+hero-02.png — balcão refrigerado
+hero-04.png — câmara fria inox
+hero-05.png — dispositivo Smart IoT
+hero-07.png — análise de monitoramento em tablet
+```
+
+Originais em `/public/referencias/apresentacao interativa/` (não usar diretamente na build).
+
+Para adicionar imagens: copiar para `/public/images/hero/` e incluir o caminho no array `heroImages` em `HeroSection.tsx`.
+
+## ClientsSection — carrossel de logos
+
+Carrossel CSS puro via `@keyframes` (sem JS, sem biblioteca). Scroll infinito horizontal com fades laterais.
+
+- Logos em `/public/images/clients/` (ainda não criada — usando placeholders textuais)
+- Para ativar logo real: adicionar `src` e `alt` no objeto do array `clients` em `ClientsSection.tsx`
+- Logos devem ser PNG com fundo transparente, altura ~60px
+- CSS aplica `filter: grayscale(100%)` no estado normal e cor no hover
+- Respeita `prefers-reduced-motion`: animação desativada quando preferência do sistema ativa
 
 ## Utilitário WhatsApp
 
@@ -111,33 +170,34 @@ Breakpoints padrão do projeto:
 
 ### Regras críticas aprendidas em produção
 
-1. **Proof bar / grids com separadores:** nunca colocar elementos `<div>` de separador no DOM misturado com itens de conteúdo em um grid. Usar `border-right` / `border-left` CSS nos itens.
-2. **Números ordinais decorativos:** nunca usar `position: absolute` para elementos decorativos em mobile — eles saem do fluxo e colidem com o conteúdo. Usar `flex` row com `justify-content: space-between` e `opacity` baixa.
-3. **Botões em mobile:** remover `white-space: nowrap` do base do ThemeBtn. O botão deve quebrar linha, não causar overflow horizontal.
-4. **`overflow-x: hidden`** no `.page-wrapper`, não no `body` — evita quebrar `position: fixed` dos elementos flutuantes (header sticky, scroll to top).
+1. **Proof bar / grids com separadores:** nunca colocar `<div>` de separador no DOM misturado com itens. Usar `border-right` / `border-left` CSS nos próprios itens.
+2. **Números ordinais decorativos:** nunca usar `position: absolute` em mobile — saem do fluxo e colidem com o conteúdo. Usar `flex` row com `justify-content: space-between` e `opacity` baixa.
+3. **Botões em mobile:** sem `white-space: nowrap` no base do ThemeBtn. O botão deve quebrar linha, não causar overflow horizontal.
+4. **`overflow-x: hidden`** no `.page-wrapper`, não no `body` — evita quebrar `position: fixed` (header sticky, scroll-to-top).
 5. **`min-height: 100svh`** no hero em vez de `100vh` — `svh` desconta a barra do browser no iOS.
+6. **Triângulos com z-index:** cada seção com triângulo precisa de `z-index` incremental. A seção que vem "por cima" visualmente deve ter z-index maior.
 
-## Identidade compartilhada do ecossistema
+## Identidade compartilhada do ecossistema Leo Pessoa
 
 Independente do site, manter:
 - Fontes: **Catamaran + Roboto**
-- Grafismo triangular entre seções (clip-path)
-- `border-radius: 2px` nos elementos principais — cantos quase retos
+- Grafismo triangular entre seções (`clip-path` + `margin-top` negativo)
+- `border-radius: 2px` nos elementos principais — cantos quase retos, linguagem premium
 - Verde `#59ab66` para checkmarks e CTAs WhatsApp em todos os sites
 
 ## Conteúdo de referência
 
-Materiais da Keepin disponíveis em `/public/referencias/`:
+Materiais da Keepin em `/public/referencias/` (não incluídos na build):
 - `Folder - Keepin soluções Especialistas em IoT (4).pdf` — institucional da fabricante
 - `Folder - KPRemote - Serviços de Saúde.pdf` — versão para hospitais/farmácias
-- `apresentacao interativa/apresenta_o_comercial_premium.html` — 8 slides de apresentação comercial para supermercados
+- `apresentacao interativa/apresenta_o_comercial_premium.html` — 8 slides comerciais para supermercados
 
 ### Dados-chave do produto (extraídos do material)
 
 - Monitoramento de **10 em 10 minutos**, 24h/365 dias
 - Redução comprovada de **70% das perdas** por desvios de temperatura
 - Multas de **R$ 2 mil a R$ 1,5 milhão** (Lei 6.437/77)
-- Uma câmara quebrada = **R$ 30.000 a R$ 40.000** em descarte (apresentação)
+- Uma câmara quebrada = **R$ 30.000 a R$ 40.000** em descarte
 - Modelo **HaaS + SaaS** — mensalidade por equipamento, sem investimento inicial
 - Instalação **sem obras, sem furos, sem downtime**
 - Piloto de **2 semanas** sem custo nas câmaras mais críticas
