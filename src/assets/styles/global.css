@@ -112,7 +112,7 @@ img {
   margin: 0 auto;
   width: 100%;
   min-width: 320px;
-  overflow-x: hidden; /* previne scroll horizontal em mobile */
+  overflow-x: clip; /* previne scroll horizontal sem quebrar position:fixed */
   z-index: 1;
   background-color: var(--color-bg);
 }
