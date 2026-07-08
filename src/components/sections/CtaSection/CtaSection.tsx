@@ -17,26 +17,26 @@ import styles from './CtaSection.module.css';
 const steps = [
   {
     number: '1',
-    title: 'Visita do consultor',
-    text: 'Leo visita sua operação e identifica os pontos críticos de monitoramento.',
+    title: 'Conversa com o especialista',
+    text: 'Entendemos sua operação em 15 minutos pelo WhatsApp e definimos os pontos críticos.',
   },
   {
     number: '2',
-    title: 'Instalação limpa',
-    text: 'Sensores instalados sem obras, sem furos, sem parar a operação.',
+    title: 'Instalação sem parar a operação',
+    text: 'Sensores em funcionamento no mesmo dia — sem obras, sem furos, sem downtime.',
   },
   {
     number: '3',
-    title: 'Você vê funcionando',
-    text: 'Alertas no seu WhatsApp e relatório pronto — em até 2 semanas de piloto.',
+    title: 'Sua operação protegida 24h',
+    text: 'Alertas direto no seu WhatsApp, relatórios prontos e conformidade sanitária garantida.',
   },
 ];
 
 const objections = [
   { text: 'Sem contrato de fidelidade' },
-  { text: 'Sem investimento inicial no piloto' },
+  { text: 'Sem investimento inicial' },
   { text: 'Suporte direto com o engenheiro responsável' },
-  { text: 'Relatório de prova gratuito ao final do teste' },
+  { text: 'Primeiros 5 clientes do mês recebem instalação prioritária' },
 ];
 
 export default function CtaSection() {
@@ -57,21 +57,20 @@ export default function CtaSection() {
           <div className={styles.copy}>
 
             <span className={styles.eyebrow}>
-              Projeto Piloto Sem Compromisso
+              Resolva Isso Hoje
             </span>
 
             <h2 className={styles.headline}>
-              Não Compre Nada Agora.{' '}
+              Sua Operação Já Está em Risco.{' '}
               <span className={styles.headlineAccent}>
-                Deixe o Sistema Provar.
+                Resolva Isso Hoje.
               </span>
             </h2>
 
             <p className={styles.text}>
-              Implantamos o KPRemote nas suas câmaras mais críticas por{' '}
-              <strong>duas semanas</strong>, sem custo. Você recebe os alertas,
-              vê os relatórios e decide com dados na mão — não com promessa de
-              vendedor.
+              Uma falha de temperatura silenciosa pode estar acontecendo{' '}
+              <strong>agora mesmo</strong> nas suas câmaras. Três passos e você
+              nunca mais fica às cegas — sem obras, sem burocracia, sem espera.
             </p>
 
             {/* 3 passos do piloto */}
@@ -102,7 +101,7 @@ export default function CtaSection() {
           {/* ── Lado direito — CTA box ────────────────────── */}
           <div className={styles.ctaBox}>
 
-            <p className={styles.ctaBoxLabel}>Projeto Piloto</p>
+            <p className={styles.ctaBoxLabel}>Fale Agora</p>
 
             <p className={styles.ctaBoxSub}>
               Pronto para<br />Proteger sua<br />Operação?
@@ -112,9 +111,9 @@ export default function CtaSection() {
 
             <ThemeBtn
               href={whatsappUrl(
-                'Olá, Leo! Vi o site do KPRemote e quero conversar sobre um Projeto Piloto para minha empresa.'
+                'Olá, Leo! Vi o site do KPRemote e quero proteger minha operação. Pode me explicar como funciona?'
               )}
-              label="Iniciar Projeto Piloto"
+              label="Falar com o Especialista Agora"
               variant="whatsapp"
               size="large"
               external
