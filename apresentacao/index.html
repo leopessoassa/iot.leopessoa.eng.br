@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPRemote — Solução Corporativa Premium de IoT</title>
+    
+    <!-- Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        petrol: {
+                            50: '#f0f7f9',
+                            100: '#daecf2',
+                            500: '#00a896', // Aqua Keepin Accent
+                            800: '#0b2545', // Deep Petrol Medium
+                            900: '#091e3a', // Deep Petrol Dark
+                            950: '#020d1c', // Deep Petrol Deepest
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Transição fluida entre slides */
+        .slide-frame {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: scale(0.98) translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+        .slide-frame.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+        
+        /* Glassmorphic custom effects */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .glass-panel-dark {
+            background: rgba(9, 30, 58, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Personalização do Slider */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #00a896;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 168, 150, 0.5);
+            transition: transform 0.1s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="bg-petrol-950 text-slate-100 min-h-screen flex flex-col justify-between overflow-hidden selection:bg-petrol-500 selection:text-white">
+
+    
+    <!-- TOP BAR: Identidade Corporativa e Indicador -->
+    <header class="w-full px-8 py-4 bg-petrol-950/80 backdrop-blur-md border-b border-white/5 flex justify-between items-center z-50">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-petrol-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-petrol-500/20">
+                <i class="fa-solid fa-square-poll-vertical text-white text-base"></i>
+            </div>
+            <div>
+                <span class="font-montserrat font-extrabold tracking-wider text-white text-lg">KEEPIN</span>
+                <span class="text-xs text-petrol-500 font-bold tracking-widest block -mt-1">PREVENTIVE IoT</span>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-6">
+            <div class="hidden md:flex items-center space-x-2 bg-white/5 px-4 py-1.5 rounded-full border border-white/10 text-xs text-slate-300">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="font-medium">Proposta Exclusiva: Varejo Alimentar</span>
+            </div>
+            <div class="text-xs font-mono text-slate-400">
+                SLIDE <span id="current-slide-num" class="text-petrol-500 font-bold text-sm">1</span> / 8
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN SLIDE AREA -->
+    <main class="flex-grow relative flex items-center justify-center p-4 md:p-8">
+        
+        <!-- ========================================== -->
+        <!-- SLIDE 1: A CAPA (Imersivo, Premium, Split-screen diagonal) -->
+        <!-- ========================================== -->
+        <div class="slide-frame active w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-gradient-to-r from-petrol-900 to-petrol-950 border border-white/5" id="slide-1">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Conteúdo -->
+                <div class="lg:col-span-7 p-8 md:p-14 flex flex-col justify-between relative overflow-hidden h-full">
+                    <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-petrol-500/10 blur-3xl"></div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-petrol-500/10 border border-petrol-500/20 text-xs font-bold text-petrol-500 uppercase tracking-widest mb-6">
+                            Inteligência Operacional Ativa
+                        </span>
+                        <h1 class="font-montserrat font-extrabold text-3xl md:text-5xl lg:text-6xl text-white leading-[1.15] mb-6">
+                            Como Proteger a <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-petrol-500 to-emerald-400">Margem de Lucro</span><br>
+                            dos Seus Perecíveis
+                        </h1>
+                        <p class="text-slate-300 text-sm md:text-lg font-light max-w-xl leading-relaxed">
+                            Transformando o risco de quebras ocultas em lucro real direto para o EBITDA da sua loja — 24 horas por dia, de forma 100% automatizada.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-white/10 pt-6 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Apresentado por</p>
+                            <p class="text-white font-bold text-base">Leonardo Pessoa</p>
+                            <p class="text-xs text-slate-400">Especialista em Soluções IoT — Keepin</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-petrol-500 font-bold bg-petrol-500/5 px-4 py-2 rounded-xl border border-petrol-500/10">
+                            <i class="fa-solid fa-location-dot"></i> João Pessoa - Paraíba
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagem Bleed com corte estilizado -->
+                <div class="lg:col-span-5 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-petrol-900 to-transparent z-10"></div>
+                    <img src="01.png" alt="Perecíveis Premium Varejo" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 2: O DESAFIO (Assemetria de Cards e Foco em Perda Real) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-slate-900 border border-white/5" id="slide-2">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Imagem -->
+                <div class="lg:col-span-5 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-l from-slate-900 to-transparent z-10"></div>
+                    <img src="02.png" alt="Balcão Refrigerado" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                <!-- Conteúdo -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between h-full bg-slate-950/40">
+                    <div>
+                        <span class="text-xs font-bold text-rose-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Diagnóstico Operacional
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            A Realidade Oculta nos Seus Perecíveis
+                        </h2>
+                        <p class="text-slate-300 text-sm md:text-base font-light mb-8 max-w-2xl">
+                            O maior inimigo da sua margem de lucro opera no mais absoluto silêncio. A maioria das equipes de loja só percebe o problema quando o descarte ou a quebra já aconteceram.
+                        </p>
+
+                        <!-- Cards Assimétricos sem mesmice -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-slate-900/80 p-5 rounded-2xl border border-white/5 hover:border-rose-500/30 transition-all duration-300 group">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400 mb-4 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm mb-2">Desafio Invisível</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">Oscilações térmicas frequentes e micro-variações no dia a dia passam despercebidas pela escala humana.</p>
+                            </div>
+
+                            <div class="bg-slate-900/80 p-5 rounded-2xl border border-white/5 hover:border-rose-500/30 transition-all duration-300 group">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400 mb-4 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                    <i class="fa-solid fa-droplet-slash"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm mb-2">Perda Silenciosa</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">O produto perde umidade, "sua" no expositor, e tem seu shelf life reduzido pela metade antes de ir ao caixa.</p>
+                            </div>
+
+                            <div class="bg-slate-900/80 p-5 rounded-2xl border border-white/5 hover:border-rose-500/30 transition-all duration-300 group">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400 mb-4 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                    <i class="fa-solid fa-moon"></i>
+                                </div>
+                                <h4 class="text-white font-bold text-sm mb-2">Vulnerabilidade</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">Falhas drásticas no compressor e no maquinário ocorrem na calada da noite ou nos domingos sem supervisão.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-xs text-slate-500 italic border-t border-white/5 pt-4">
+                        Fonte: Associação Brasileira de Supermercados (ABRAS) - Perecíveis representam o principal ralo de margem líquida.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 3: O CUSTO DA PRANCHETA (Oposição Visual Clássica) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-zinc-950 border border-white/5" id="slide-3">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Esquerda: Informação Pesada -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between h-full relative">
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+                    
+                    <div>
+                        <span class="text-xs font-bold text-amber-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-circle-xmark"></i> O Paradigma Ultrapassado
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            O Custo Invisível da Prancheta
+                        </h2>
+                        
+                        <div class="space-y-6 max-w-2xl">
+                            <div class="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/10">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0">
+                                    <i class="fa-solid fa-pencil text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-base mb-1">Dados Retroativos e "Maquiados"</h4>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Planilhas físicas aceitam preenchimentos de qualquer número. Muitas vezes os dados são anotados em bloco "para constar" no final do turno.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/10">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0">
+                                    <i class="fa-solid fa-hourglass-half text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-base mb-1">Desperdício de Mão de Obra Caro</h4>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Colaboradores qualificados perdem dezenas de horas por mês em burocracia ineficiente em vez de operarem na área de vendas.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4 items-start bg-rose-500/10 p-4 rounded-2xl border border-rose-500/20">
+                                <div class="w-12 h-12 rounded-xl bg-rose-500/20 flex items-center justify-center text-rose-400 flex-shrink-0">
+                                    <i class="fa-solid fa-clock-rotate-left text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-rose-300 font-bold text-base mb-1">O Ponto Cego das "21 Horas"</h4>
+                                    <p class="text-sm text-rose-100/70 leading-relaxed">Medir a temperatura de forma manual apenas 3 vezes ao dia significa deixar seu maior ativo financeiro completamente no escuro durante as outras 21 horas do dia.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-amber-500/75 font-semibold">
+                        Anotar temperatura em papel não previne perdas. Só registra a catástrofe que já ocorreu.
+                    </div>
+                </div>
+
+                <!-- Direita: Imagem de Alta Qualidade -->
+                <div class="lg:col-span-5 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-zinc-950 to-transparent z-10"></div>
+                    <img src="03.png" alt="Controle de Temperatura Manual" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 4: RISCO TRABALHISTA E SANITÁRIO (Foco Editorial / Clean Moderno) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-gradient-to-br from-slate-900 to-slate-950 border border-white/5" id="slide-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Imagem com layout vertical marcante -->
+                <div class="lg:col-span-5 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-l from-slate-950 to-transparent z-10"></div>
+                    <img src="04.png" alt="Câmara Fria Inox" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+
+                <!-- Conteúdo Estilo "Lente de Auditoria" -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between h-full bg-slate-950/20">
+                    <div>
+                        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-shield-halved"></i> Conformidade e Segurança Jurídica
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            A Bomba Relógio Trabalhista & Reguladora
+                        </h2>
+                        <p class="text-slate-300 text-sm md:text-base font-light mb-8 max-w-xl">
+                            Para além da perda de matéria-prima, o controle inadequado expõe a diretoria e os gerentes a riscos que podem paralisar a operação.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Risco 1 -->
+                            <div class="border-l-4 border-rose-500 pl-4 py-1">
+                                <h4 class="text-white font-bold text-sm mb-1">Passivos Trabalhistas Ativos</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    Funcionários expostos a baixas temperaturas sem o rodízio e EPI adequados geram pedidos contínuos de insalubridade de forma recorrente em processos trabalhistas.
+                                </p>
+                            </div>
+                            <!-- Risco 2 -->
+                            <div class="border-l-4 border-amber-500 pl-4 py-1">
+                                <h4 class="text-white font-bold text-sm mb-1">Acúmulo de Função Configurado</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    Mandar repositores entrarem em câmaras para assinar papeladas cria desvio de atividade e brechas jurídicas automáticas na justiça civil e trabalhista.
+                                </p>
+                            </div>
+                            <!-- Solução -->
+                            <div class="border-l-4 border-emerald-400 pl-4 py-1 md:col-span-2 mt-2 bg-emerald-500/5 p-3 rounded-r-xl">
+                                <h4 class="text-emerald-300 font-bold text-sm mb-1 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check"></i> Blindagem Integral com a ANVISA (RDC 216 / RDC 360)
+                                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded ml-2">Sua Loja 100% Protegida</span>
+                                </h4>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Garanta um repositório central inviolável com leituras de temperatura de hora em hora. Perfeito para auditorias estaduais e federais de vigilância sanitária.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-xs text-emerald-400 font-bold bg-emerald-950/40 px-4 py-2.5 rounded-xl border border-emerald-500/10 w-fit">
+                        <i class="fa-solid fa-stamp"></i> Atendimento pleno das exigências normativas da vigilância.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 5: KPREMOTE A SOLUÇÃO (Imersão de Dashboard e Alerta Ativo) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-gradient-to-br from-petrol-900 via-petrol-950 to-slate-950 border border-white/5" id="slide-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Conteúdo Esquerda -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div>
+                        <span class="text-xs font-bold text-petrol-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-cpu animate-pulse"></i> IoT & Monitoramento Avançado
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            KPRemote: Seu Assistente Ativo 24h
+                        </h2>
+                        <p class="text-slate-300 text-sm md:text-base font-light mb-8 max-w-xl">
+                            Eliminamos completamente o fator falha humana do processo de medição. Uma camada inteligente de sensores que avisa de verdade antes da perda se consolidar.
+                        </p>
+
+                        <!-- Grade de Destaques -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10 flex gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-petrol-500/10 flex items-center justify-center text-petrol-400 flex-shrink-0">
+                                    <i class="fa-solid fa-bolt-lightning"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-xs mb-1">Instalação Clean</h4>
+                                    <p class="text-[11px] text-slate-400">Sem quebra de paredes, sem fios expostos e sem downtime na sua logística.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10 flex gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-petrol-500/10 flex items-center justify-center text-petrol-400 flex-shrink-0">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-xs mb-1">Monitoramento Sem Fim</h4>
+                                    <p class="text-[11px] text-slate-400">Medições ininterruptas de 10 em 10 minutos, com relatórios gerados via IA.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulação de Alerta Interativo e Animado -->
+                    <div class="mt-4 bg-emerald-950/20 p-4 rounded-2xl border border-emerald-500/20 max-w-xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp text-sm text-emerald-400"></i> Fluxo Ativo de Incidente
+                            </span>
+                            <span class="text-[10px] text-emerald-500 font-mono">Disparado em Tempo Real</span>
+                        </div>
+                        <!-- Mockup de Notificação flutuante com pulso -->
+                        <div class="bg-slate-900 border border-white/10 p-3 rounded-xl shadow-lg relative overflow-hidden animate-bounce" style="animation-duration: 3s;">
+                            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-rose-500"></div>
+                            <div class="flex justify-between items-start pl-2">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-extrabold text-white">SENSORA - ALERTA CRÍTICO</span>
+                                        <span class="text-[9px] bg-rose-500/25 text-rose-300 px-1.5 py-0.5 rounded font-mono font-bold">14:02 AM</span>
+                                    </div>
+                                    <p class="text-xs text-rose-200 font-semibold mt-1">Sala 3 (Câmara de Congelados): Temperatura de 4.8°C excede limite!</p>
+                                    <p class="text-[11px] text-slate-400 mt-1">Tempo tolerado excedido. Favor verificar portas ou sistema de dreno.</p>
+                                </div>
+                                <span class="text-xs font-bold text-rose-500 animate-pulse"><i class="fa-solid fa-circle"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem Direita -->
+                <div class="lg:col-span-5 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-petrol-950 to-transparent z-10"></div>
+                    <img src="05.png" alt="Dispositivo Smart IoT" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 6: O SEGURO DO SEU BÔNUS (Efeito WOW - Simulador de EBITDA) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-gradient-to-br from-slate-900 to-slate-950 border border-white/5" id="slide-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Esquerda: O Desastre Financeiro de uma Parada -->
+                <div class="lg:col-span-5 p-8 md:p-12 flex flex-col justify-between h-full bg-slate-950/60 relative">
+                    <div class="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay pointer-events-none" style="background-image: url('06.png');"></div>
+                    
+                    <div>
+                        <span class="text-xs font-bold text-rose-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-piggy-bank"></i> Retorno sobre Investimento
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            O Seguro do <br>Seu Bônus
+                        </h2>
+                        
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+                            Uma única quebra drástica na câmara de frios principal do supermercado custa instantaneamente de <strong class="text-white">R$ 30.000 a R$ 40.000</strong> em descarte bruto de estoque.
+                        </p>
+                        
+                        <div class="bg-rose-500/10 p-5 rounded-2xl border border-rose-500/20 text-rose-200">
+                            <h4 class="font-bold text-sm mb-2 flex items-center gap-1.5">
+                                <i class="fa-solid fa-chart-pie text-rose-400"></i> Impacto Direto no PLR
+                            </h4>
+                            <p class="text-xs leading-relaxed text-slate-300">
+                                Perda severa de estoque reduz as margens de lucratividade líquida de forma irrecuperável, afetando diretamente a meta anual de margem que garante o bônus final da diretoria e gerência operacional.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-xs text-slate-500">
+                        Invista em blindagem inteligente ativa e proteja sua meta.
+                    </div>
+                </div>
+
+                <!-- Direita: SIMULADOR DE PERDAS INTERATIVO (O grande efeito "UAU" comercial) -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between h-full bg-slate-900/40 relative">
+                    <div class="absolute top-0 right-0 w-80 h-80 bg-petrol-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+                    
+                    <div>
+                        <span class="text-xs font-bold text-petrol-500 uppercase tracking-widest block mb-1">Cálculo de Viabilidade Econômica</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Simulador de Proteção de Lucro</h3>
+                        
+                        <!-- Controles Interativos -->
+                        <div class="bg-slate-900/60 p-6 rounded-2xl border border-white/5 space-y-6">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-bold text-slate-300">Faturamento Mensal do Setor de Perecíveis:</span>
+                                    <span id="faturamento-val" class="text-sm font-bold text-petrol-500">R$ 500.000</span>
+                                </div>
+                                <input type="range" id="faturamento-range" min="100000" max="3000000" step="50000" value="500000" class="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-bold text-slate-300">Sua Taxa Estimada de Descarte/Perdas (%):</span>
+                                    <span id="perda-val" class="text-sm font-bold text-amber-500">2.5%</span>
+                                </div>
+                                <input type="range" id="perda-range" min="0.5" max="6.0" step="0.1" value="2.5" class="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                        </div>
+
+                        <!-- RESULTADOS CALCULADOS DINAMICAMENTE -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                            <div class="bg-rose-500/5 p-4 rounded-xl border border-rose-500/10 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Sua perda anual atual:</span>
+                                    <span id="resultado-perda" class="text-xl font-black text-rose-400">R$ 150.000</span>
+                                </div>
+                                <i class="fa-solid fa-arrow-trend-down text-rose-500 text-lg"></i>
+                            </div>
+
+                            <div class="bg-emerald-500/5 p-4 rounded-xl border border-emerald-500/10 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">EBITDA Protegido pelo KPRemote:</span>
+                                    <span id="resultado-salvo" class="text-xl font-black text-emerald-400">R$ 105.000</span>
+                                </div>
+                                <i class="fa-solid fa-shield-cat text-emerald-500 text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-[11px] text-slate-400/80 leading-relaxed bg-white/5 p-3 rounded-lg border border-white/5">
+                        *Cálculo estimativo considerando a redução mínima comprovada de <strong>70% das perdas por desvios de temperatura</strong> através de detecção precoce do KPRemote.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 7: SUPORTE LOCAL VS RJ-SP (Efeito Card Inteligente de Comparação) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-gradient-to-br from-petrol-900 to-slate-950 border border-white/5" id="slide-7">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Tabela de Comparação Reconstruída com visual Moderno -->
+                <div class="lg:col-span-8 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div>
+                        <span class="text-xs font-bold text-petrol-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-globe"></i> Presença vs. Distância
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            Por que Escolher o KPRemote?
+                        </h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <!-- Concorrentes -->
+                            <div class="bg-slate-950/60 p-5 rounded-2xl border border-white/5 flex flex-col justify-between h-64">
+                                <div>
+                                    <h4 class="text-slate-400 font-bold text-sm uppercase tracking-wider mb-4 border-b border-white/5 pb-2">Soluções SP-RJ (Ex: Syos)</h4>
+                                    <ul class="space-y-3.5 text-xs">
+                                        <li class="flex items-center gap-2 text-slate-300">
+                                            <i class="fa-solid fa-circle-xmark text-rose-500 flex-shrink-0"></i>
+                                            <span>Atendimento centralizado via chatbot telefônico</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 text-slate-300">
+                                            <i class="fa-solid fa-circle-xmark text-rose-500 flex-shrink-0"></i>
+                                            <span>Preço repassa altos custos de investimento em capitais</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 text-slate-300">
+                                            <i class="fa-solid fa-circle-xmark text-rose-500 flex-shrink-0"></i>
+                                            <span>Alertas básicos apenas por e-mail e aplicativo proprietário</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="text-[10px] text-slate-500 italic">Estrutura distante e burocrática</span>
+                            </div>
+
+                            <!-- KPRemote -->
+                            <div class="bg-petrol-500/10 p-5 rounded-2xl border border-petrol-500/30 flex flex-col justify-between h-64 relative overflow-hidden">
+                                <div class="absolute -top-12 -right-12 w-24 h-24 bg-petrol-500/20 blur-2xl rounded-full"></div>
+                                <div>
+                                    <h4 class="text-petrol-400 font-bold text-sm uppercase tracking-wider mb-4 border-b border-petrol-500/20 pb-2 flex items-center justify-between">
+                                        KPRemote — Keepin
+                                        <span class="text-[9px] bg-petrol-500 text-white px-2 py-0.5 rounded-full font-bold">Líder Regional</span>
+                                    </h4>
+                                    <ul class="space-y-3.5 text-xs">
+                                        <li class="flex items-center gap-2 text-white">
+                                            <i class="fa-solid fa-circle-check text-emerald-400 flex-shrink-0"></i>
+                                            <strong>Suporte presencial em João Pessoa e região</strong>
+                                        </li>
+                                        <li class="flex items-center gap-2 text-white">
+                                            <i class="fa-solid fa-circle-check text-emerald-400 flex-shrink-0"></i>
+                                            <strong>Projeto personalizado até 3x mais econômico</strong>
+                                        </li>
+                                        <li class="flex items-center gap-2 text-white">
+                                            <i class="fa-solid fa-circle-check text-emerald-400 flex-shrink-0"></i>
+                                            <strong>Notificações diretas e imediatas via WhatsApp</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="text-[10px] text-petrol-400 font-bold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bolt"></i> Engenharia local dedicada a você
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-slate-400 font-light border-t border-white/5 pt-4">
+                        Economize no investimento, ganhe na confiabilidade com a engenharia que está ao seu lado fisicamente.
+                    </div>
+                </div>
+
+                <!-- Imagem Direita -->
+                <div class="lg:col-span-4 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-petrol-900 to-transparent z-10"></div>
+                    <img src="07.png" alt="Análise de Monitoramento Tablet" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 8: CALL TO ACTION (Layout Premium Minimalista) -->
+        <!-- ========================================== -->
+        <div class="slide-frame w-full max-w-7xl mx-auto h-[70vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/60 bg-gradient-to-br from-slate-900 via-slate-950 to-petrol-950 border border-white/5" id="slide-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                <!-- Esquerda -->
+                <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div>
+                        <span class="text-xs font-bold text-petrol-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-paper-plane animate-pulse"></i> Próxima Etapa Segura
+                        </span>
+                        <h2 class="font-montserrat font-extrabold text-2xl md:text-4xl text-white mb-6 leading-tight">
+                            Seu Piloto de Validação Sem Custo
+                        </h2>
+                        <p class="text-slate-300 text-sm md:text-base font-light mb-8 max-w-xl">
+                            Não compre nada agora. Vamos implantar um teste real e prático na sua pior câmara fria por duas semanas para comprovar os resultados do monitoramento automatizado.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3.5 bg-white/5 p-4 rounded-xl border border-white/10 max-w-xl">
+                                <div class="w-10 h-10 rounded-full bg-petrol-500/10 flex items-center justify-center text-petrol-400 flex-shrink-0">
+                                    <i class="fa-solid fa-gamepad"></i>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    <strong>Sem furos ou mudanças de infraestrutura:</strong> O teste é feito de forma limpa, não atrapalhando a logística diária.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3.5 bg-white/5 p-4 rounded-xl border border-white/10 max-w-xl">
+                                <div class="w-10 h-10 rounded-full bg-petrol-500/10 flex items-center justify-center text-petrol-400 flex-shrink-0">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    <strong>Acesso Completo:</strong> Você receberá relatórios e avisos direto no seu WhatsApp corporativo durante o teste.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informações de Contato Profissional -->
+                    <div class="bg-slate-900 border border-white/10 p-5 rounded-2xl max-w-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-4">
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Contato Direto</p>
+                            <p class="text-white text-sm font-bold flex items-center gap-1.5"><i class="fa-brands fa-whatsapp text-emerald-400"></i> (83) 98207-8702</p>
+                            <p class="text-slate-300 text-xs mt-1">comercial@leopessoa.eng.br</p>
+                        </div>
+                        <a href="https://wa.me/5583982078702?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20piloto%20do%20KPRemote" target="_blank" class="bg-petrol-500 hover:bg-petrol-600 text-white font-bold text-xs px-5 py-3 rounded-xl transition-all duration-300 text-center flex items-center justify-center gap-2 shadow-lg shadow-petrol-500/20">
+                            Iniciar Piloto <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Imagem Direita -->
+                <div class="lg:col-span-5 relative hidden lg:block h-full">
+                    <div class="absolute inset-0 bg-gradient-to-r from-slate-900 to-transparent z-10"></div>
+                    <img src="08.png" alt="Aperto de Mão Sucesso" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER: CONTROLES INTERATIVOS E BARRA DE PROGRESSO -->
+    <footer class="w-full px-8 py-5 bg-petrol-950 border-t border-white/5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 z-50">
+        <!-- Barra de Progresso Dinâmica -->
+        <div class="w-full md:w-1/3 flex items-center space-x-3 order-2 md:order-1">
+            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Progresso</span>
+            <div class="flex-grow h-2 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                <div id="slide-progress" class="h-full bg-gradient-to-r from-petrol-500 to-emerald-400 transition-all duration-500 rounded-full" style="width: 12.5%;"></div>
+            </div>
+        </div>
+        
+        <!-- Controles Interativos -->
+        <div class="flex items-center justify-center space-x-4 order-1 md:order-2">
+            <button id="btn-prev" class="w-12 h-12 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-white flex items-center justify-center transition-all duration-200" disabled>
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            
+            <div class="flex space-x-1.5" id="slide-dots">
+                <button class="w-3 h-3 rounded-full bg-petrol-500" data-target="1"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="2"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="3"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="4"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="5"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="6"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="7"></button>
+                <button class="w-3 h-3 rounded-full bg-white/10 hover:bg-white/30" data-target="8"></button>
+            </div>
+            
+            <button id="btn-next" class="w-12 h-12 rounded-xl bg-petrol-500 hover:bg-petrol-600 active:scale-95 text-white flex items-center justify-center transition-all duration-200 shadow-lg shadow-petrol-500/20">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Instruções de Navegação de Teclado -->
+        <div class="hidden md:block text-slate-500 text-xs text-right order-3">
+            <span class="bg-white/5 border border-white/10 px-2 py-1 rounded text-[10px] font-bold tracking-wider mr-2">Use as setas do teclado ← →</span>
+        </div>
+    </footer>
+
+    <!-- LÓGICA DE CONTROLE E SIMULADORES -->
+    <script>
+        const totalSlides = 8;
+        let currentSlide = 1;
+
+        // Elementos de navegação
+        const prevBtn = document.getElementById('btn-prev');
+        const nextBtn = document.getElementById('btn-next');
+        const progress = document.getElementById('slide-progress');
+        const currentNum = document.getElementById('current-slide-num');
+        const dotButtons = document.querySelectorAll('#slide-dots button');
+
+        // Função de alteração do Slide ativo
+        function goToSlide(slideIndex) {
+            if(slideIndex < 1 || slideIndex > totalSlides) return;
+            
+            // Remove atividade do slide anterior
+            document.querySelector('.slide-frame.active').classList.remove('active');
+            
+            // Ativa o novo slide
+            document.getElementById(`slide-${slideIndex}`).classList.add('active');
+            
+            currentSlide = slideIndex;
+
+            // Atualiza indicadores do Player
+            currentNum.innerText = currentSlide;
+            progress.style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+            // Controle de Botões Principais
+            prevBtn.disabled = currentSlide === 1;
+            
+            if (currentSlide === 1) {
+                prevBtn.classList.add('opacity-50');
+            } else {
+                prevBtn.classList.remove('opacity-50');
+            }
+
+            // Atualização dos Pontos de Progresso (Dots)
+            dotButtons.forEach((dot, index) => {
+                if (index + 1 === currentSlide) {
+                    dot.className = "w-3 h-3 rounded-full bg-petrol-500 transition-all duration-300";
+                } else {
+                    dot.className = "w-3 h-3 rounded-full bg-white/10 hover:bg-white/30 transition-all duration-300";
+                }
+            });
+        }
+
+        // Handlers de Evento de Botão
+        prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => {
+            if(currentSlide === totalSlides) {
+                // Reinicia para o começo de forma cíclica
+                goToSlide(1);
+            } else {
+                goToSlide(currentSlide + 1);
+            }
+        });
+
+        // Clique Direto nos Pontos (Dots)
+        dotButtons.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const target = parseInt(e.target.getAttribute('data-target'));
+                goToSlide(target);
+            });
+        });
+
+        // Navegação por Teclado (Setas Esquerda/Direita)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                if (currentSlide === totalSlides) goToSlide(1);
+                else goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                goToSlide(currentSlide - 1);
+            }
+        });
+
+        // Suporte Básico de Swipe Touch para Mobile
+        let startX = 0;
+        document.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', e => {
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+
+            if (Math.abs(diffX) > 60) { // Sensibilidade mínima de swipe
+                if (diffX > 0) {
+                    if (currentSlide === totalSlides) goToSlide(1);
+                    else goToSlide(currentSlide + 1);
+                } else {
+                    goToSlide(currentSlide - 1);
+                }
+            }
+        });
+
+        // ==========================================
+        // CÁLCULOS DINÂMICOS DO SIMULADOR (SLIDE 6)
+        // ==========================================
+        const fatRange = document.getElementById('faturamento-range');
+        const fatVal = document.getElementById('faturamento-val');
+        const perdaRange = document.getElementById('perda-range');
+        const perdaVal = document.getElementById('perda-val');
+        const resPerda = document.getElementById('resultado-perda');
+        const resSalvo = document.getElementById('resultado-salvo');
+
+        function formatBRL(value) {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value);
+        }
+
+        function updateSimulation() {
+            const faturamento = parseFloat(fatRange.value);
+            const perdaPercent = parseFloat(perdaRange.value) / 100;
+            
+            // Valores formatados na tela
+            fatVal.innerText = formatBRL(faturamento);
+            perdaVal.innerText = (perdaPercent * 100).toFixed(1) + "%";
+
+            // Perda Anual Estimada = Faturamento Mensal * Percentual de Perda * 12 Meses
+            const perdaAnualTotal = faturamento * perdaPercent * 12;
+            
+            // O KPRemote reduz em 70% o prejuízo de perdas diretas por variações
+            const economiaEbitda = perdaAnualTotal * 0.70;
+
+            resPerda.innerText = formatBRL(perdaAnualTotal);
+            resSalvo.innerText = formatBRL(economiaEbitda);
+        }
+
+        // Listeners do Simulador
+        fatRange.addEventListener('input', updateSimulation);
+        perdaRange.addEventListener('input', updateSimulation);
+
+        // Inicializar Simulador com valores Padrão
+        updateSimulation();
+
+    </script>
+</body>
+</html>
